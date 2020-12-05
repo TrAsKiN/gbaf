@@ -49,6 +49,9 @@ class App
                 break;
         }
 
+        /**
+         * Sending to the browser if there is content
+         */
         if (ob_get_length()) {
             ob_end_flush();
         }

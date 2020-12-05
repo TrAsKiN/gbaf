@@ -1,19 +1,10 @@
 <?php
 namespace GBAF\Controller;
 
-class Home
+use GBAF\Controller\Controller;
+
+class Home extends Controller
 {
-    private $tplDirectory;
-
-    /**
-     * @param string $tplDirectory The templates directory
-     * @return void
-     */
-    public function __construct($tplDirectory)
-    {
-        $this->tplDirectory = $tplDirectory;
-    }
-
     /**
      * @return void
      */
