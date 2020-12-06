@@ -1,15 +1,14 @@
 <?php
 namespace GBAF;
 
+use GBAF\App;
+
 class Controller
 {
     public $tplDirectory;
 
-    /**
-     * @param string $tplDirectory The templates directory
-     */
-    public function __construct(string $tplDirectory)
+    public function __construct()
     {
-        $this->tplDirectory = $tplDirectory;
+        $this->tplDirectory = dirname(App::TEMPLATES_DIRECTORY);
     }
 }

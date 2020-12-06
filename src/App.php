@@ -5,7 +5,7 @@ use GBAF\Controller\Home;
 
 class App
 {
-    private $tplDirectory = __DIR__ . '/../templates';
+    const TEMPLATES_DIRECTORY = dirname(__DIR__) . '/../templates';
 
     /**
      * Main application
@@ -30,7 +30,7 @@ class App
          */
         switch ($uri) {
             case '/':
-                (new Home($this->tplDirectory))->action();
+                (new Home())->action();
                 break;
             case '/login':
                 print_r('Connexion');
