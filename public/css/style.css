@@ -1,0 +1,24 @@
+body{
+    margin: 1rem;
+}
+
+.acteurs{
+    border: 1px solid black;
+    padding: 1rem;
+}
+
+.acteur{
+    border: 1px solid black;
+    padding: 1rem;
+    margin: 1rem auto;
+}
+.acteur:first-child, .acteur:last-child{
+    margin: auto;
+}
+
+.debug{
+    /* display: none; */
+    padding: 1rem;
+    color: darkslategray;
+    background: lightgray;
+}
