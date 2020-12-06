@@ -5,7 +5,7 @@ use GBAF\Controller\Home;
 
 class App
 {
-    const TEMPLATES_DIRECTORY = dirname(__DIR__) . '/../templates';
+    const TEMPLATES_DIRECTORY = __DIR__ . '/../templates';
 
     /**
      * Main application
