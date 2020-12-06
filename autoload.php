@@ -8,16 +8,16 @@
 spl_autoload_register(function ($class) {
     $prefix = 'GBAF\\';
 
-    $base_dir = __DIR__ . '/src/';
+    $baseDir = __DIR__ . '/src/';
 
-    $len = strlen($prefix);
-    if (strncmp($prefix, $class, $len) !== 0) {
+    $length = strlen($prefix);
+    if (strncmp($prefix, $class, $length) !== 0) {
         return;
     }
 
-    $relative_class = substr($class, $len);
+    $relativeClass = substr($class, $length);
 
-    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+    $file = $baseDir . str_replace('\\', '/', $relativeClass) . '.php';
 
     if (file_exists($file)) {
         require $file;
