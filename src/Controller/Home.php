@@ -2,6 +2,7 @@
 namespace GBAF\Controller;
 
 use GBAF\Controller\Controller;
+use GBAF\Database;
 
 class Home extends Controller
 {
@@ -10,6 +11,7 @@ class Home extends Controller
      */
     public function action(): void
     {
+        new Database();
         require $this->tplDirectory . '/home.php';
     }
 }
