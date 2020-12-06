@@ -1,5 +1,5 @@
 <?php
-namespace GBAF\Controller;
+namespace GBAF;
 
 class Controller
 {
