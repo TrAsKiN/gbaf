@@ -1,0 +1,6 @@
+<?php
+$dbParams = [
+    'name' => 'oc_gbaf',
+    'user' => 'root',
+    'pass' => ''
+];
