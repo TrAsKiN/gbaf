@@ -7,7 +7,7 @@ class Database
 
     public function __construct()
     {
-        $configFile = dirname(__DIR__) . '/../config.php';
+        $configFile = dirname(__DIR__) . '/config.php';
         if (file_exists($configFile)) {
             require $configFile;
         } else {

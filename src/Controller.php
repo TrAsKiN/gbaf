@@ -9,6 +9,6 @@ class Controller
 
     public function __construct()
     {
-        $this->tplDirectory = dirname(App::TEMPLATES_DIRECTORY);
+        $this->tplDirectory = App::TEMPLATES_DIRECTORY;
     }
 }
