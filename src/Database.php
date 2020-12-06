@@ -17,7 +17,7 @@ class Database
         try {
             $this->handler = new \PDO('mysql:host=localhost;dbname=' . $dbParams['name'] . ';charset=UTF8', $dbParams['user'], $dbParams['pass']);
         } catch (\PDOException $e) {
-            throw new \Exception('Unable to connect to the database (' . $e->getMessage() . ')');
+            error_log('Unable to connect to the database (' . $e->getMessage() . ')');
         }
     }
 
