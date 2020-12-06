@@ -7,10 +7,11 @@ class Database
 
     public function __construct()
     {
-        if (file_exists(__DIR__ . '/../config.php')) {
-            require __DIR__ . '/../config.php';
+        $configFile = dirname(__DIR__) . '/../config.php';
+        if (file_exists($configFile)) {
+            require $configFile;
         } else {
-            require __DIR__ . '/../config.php.dist';
+            require $configFile . '.dist';
         }
 
         try {
