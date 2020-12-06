@@ -1,5 +1,5 @@
 <?php
-$output = file_get_contents(__DIR__ . '/main.html');
+$output = file_get_contents(__DIR__ . '/_main.html');
 
 $title = 'GBAF';
 $output = preg_replace('/({TITLE})/', $title, $output);
