@@ -1,7 +1,7 @@
 <?php
 namespace GBAF;
 
-use GBAF\Controller\Home;
+use GBAF\Controller\HomeController;
 
 class App
 {
@@ -30,16 +30,22 @@ class App
          */
         switch ($uri) {
             case '/':
-                (new Home())->action();
+                (new HomeController())->action();
                 break;
             case '/login':
                 print_r('Connexion');
+                break;
+            case '/signup':
+                print_r('Inscription');
                 break;
             case '/logout':
                 print_r('Déconnexion');
                 break;
             case '/profile':
                 print_r('Profil');
+                break;
+            case '/lost-password':
+                print_r('Mot de passe perdu');
                 break;
             case '/partners':
                 print_r('Partenaires');
