@@ -7,9 +7,8 @@ class Controller
 
     /**
      * @param string $tplDirectory The templates directory
-     * @return void
      */
-    public function __construct($tplDirectory)
+    public function __construct(string $tplDirectory)
     {
         $this->tplDirectory = $tplDirectory;
     }

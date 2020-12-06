@@ -70,7 +70,7 @@ class App
      * @param string $url The new URL
      * @return void
      */
-    private function redirect($url): void
+    private function redirect(string $url): void
     {
         header('Location: ' . $url);
         header('HTTP/1.1 301 Moved Permanently');
