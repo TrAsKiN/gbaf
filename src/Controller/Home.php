@@ -1,7 +1,7 @@
 <?php
 namespace GBAF\Controller;
 
-use GBAF\Controller\Controller;
+use GBAF\Controller;
 use GBAF\Database;
 
 class Home extends Controller
