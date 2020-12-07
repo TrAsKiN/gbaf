@@ -1,24 +1,116 @@
 body{
+    color: black;
+    background: white;
+}
+img{
+    width: auto;
+    height: 100%;
+}
+
+/**
+ * Nav
+ */
+nav{
+    display: flex;
+    max-height: 8rem;
+    justify-content: space-between;
+    padding: 1rem;
+    background: lightgray;
+}
+nav .profile{
+    align-self: center;
+}
+
+/**
+ * Home
+ */
+ main{
     margin: 1rem;
 }
 
+figure{
+    text-align: center;
+}
+figcaption{
+    color: gray;
+    font-style: italic;
+}
+
 .acteurs{
-    border: 1px solid black;
-    padding: 1rem;
+    margin: auto;
 }
 
 .acteur{
-    border: 1px solid black;
+    position: relative;
+    display: flex;
+    background: whitesmoke;
+    border-radius: 1rem;
     padding: 1rem;
     margin: 1rem auto;
 }
 .acteur:first-child, .acteur:last-child{
     margin: auto;
 }
+.acteur > figure{
+    flex: 2;
+}
+.acteur > figure img{
+    width: 100%;
+    height: auto;
+}
+.acteur > div{
+    flex: 7;
+    margin: 0 1rem;
+}
+.acteur > p{
+    position: absolute;
+    bottom: 0;
+    right: 2rem;
+}
+.acteur > p a{
+    display: inline-block;
+    padding: .2rem .4rem;
+    border-radius: .2rem;
+    color: gray;
+    background: lightgray;
+}
+.acteur > p a:hover{
+    color: black;
+    background: darkgray;
+    text-decoration: none;
+}
 
+/**
+ * Footer
+ */
+footer{
+    display: flex;
+    color: whitesmoke;
+    background: gray;
+}
+footer ul{
+    list-style: none;
+    padding: 0;
+    margin: 1rem auto;
+    display: flex;
+}
+footer ul li:nth-child(n+2){
+    border-left: 1px solid lightgray;
+}
+footer ul li a{
+    color: whitesmoke;
+    margin: auto 1rem;
+}
+footer ul li a:hover{
+    color: white;
+}
+
+/* To be deleted */
 .debug{
     /* display: none; */
+    margin: 1rem;
     padding: 1rem;
-    color: darkslategray;
-    background: lightgray;
+    color: gray;
+    background: whitesmoke;
+    font-size: small;
 }

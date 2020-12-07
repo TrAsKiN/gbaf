@@ -15,17 +15,14 @@ class HomeTemplate extends Template
         $body = file_get_contents(App::TEMPLATES_DIRECTORY . '/home.html');
         $acteurTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/acteur.html');
 
-        $before = ob_get_contents();
-        ob_clean();
-
-        $body = preg_replace('/({TITLE})/', 'Accueil', $body);
+        $body = preg_replace('/({TITLE})/', $this->title, $body);
 
         $acteurs = '';
         foreach($data as $acteur) {
             $acteurOutput = $acteurTemplate;
             $acteurOutput = preg_replace('/({ACTEUR})/', $acteur['acteur'], $acteurOutput);
             $acteurOutput = preg_replace('/({LOGO})/', 'images/' . $acteur['logo'], $acteurOutput);
-            $acteurOutput = preg_replace('/({DESCRIPTION})/', $acteur['description'], $acteurOutput);
+            $acteurOutput = preg_replace('/({DESCRIPTION})/', nl2br($acteur['description']), $acteurOutput);
             $acteurOutput = preg_replace('/({LINK})/', '/partners/partner-' . $acteur['id_acteur'], $acteurOutput);
             $acteurs .= $acteurOutput;
         }
@@ -34,10 +31,6 @@ class HomeTemplate extends Template
             $body = preg_replace('/({ACTEURS})/', $acteurs, $body);
         } else {
             $body = preg_replace('/({ACTEURS})/', '<p>Aucun acteur à afficher.</p>', $body);
-        }
-
-        if (!empty($before)) {
-            $body .= '<pre class="debug">' . $before . '</pre>';
         }
 
         $this->output = preg_replace('/({BODY})/', $body, $this->output);
