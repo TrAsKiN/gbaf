@@ -2,6 +2,8 @@
 namespace GBAF;
 
 use GBAF\Controller\HomeController;
+use GBAF\Controller\PartnerController;
+use GBAF\Controller\UserController;
 
 class App
 {
@@ -16,7 +18,18 @@ class App
     {
         $uri = $_SERVER['REQUEST_URI'];
 
+        session_start();
         ob_start();
+
+        /**
+         * If not connected redirect to the login page
+         */
+        if (
+            !isset($_SESSION['isConnected'])
+            && !preg_match('/(login|signup|lost-password)/', $uri)
+        ) {
+            $this->redirect('/login');
+        }
 
         /**
          * Remove the trailing slash at the end of the url
@@ -30,16 +43,16 @@ class App
          */
         switch ($uri) {
             case '/':
-                (new HomeController())->action();
+                (new HomeController())->home();
                 break;
             case '/login':
-                print_r('Connexion');
+                (new UserController())->login();
                 break;
             case '/signup':
                 print_r('Inscription');
                 break;
             case '/logout':
-                print_r('Déconnexion');
+                (new UserController())->logout();
                 break;
             case '/profile':
                 print_r('Profil');
@@ -51,7 +64,9 @@ class App
                 print_r('Partenaires');
                 break;
             default:
-                // Check $uri for unique partner
+                if (preg_match('/partner-(\d+)/', $uri, $id)) {
+                    (new PartnerController())->partner($id[1]);
+                }
                 break;
         }
 
@@ -66,8 +81,7 @@ class App
         /**
          * No route found
          */
-        header('HTTP/1.1 404 Not Found');
-        exit;
+        $this->notFound();
     }
 
     /**
@@ -76,10 +90,21 @@ class App
      * @param string $url The new URL
      * @return void
      */
-    private function redirect(string $url): void
+    public static function redirect(string $url): void
     {
         header('Location: ' . $url);
         header('HTTP/1.1 301 Moved Permanently');
+        exit;
+    }
+
+    /**
+     * Return 404 Not Found
+     * 
+     * @return void
+     */
+    public static function notFound(): void
+    {
+        header('HTTP/1.1 404 Not Found');
         exit;
     }
 }
