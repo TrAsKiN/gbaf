@@ -7,10 +7,10 @@ use GBAF\Template;
 class HomeTemplate extends Template
 {
     /**
-     * @param mixed $data
+     * @param mixed|null $data
      * @return void
      */
-    public function render($data): void
+    public function render($data = null): void
     {
         $body = file_get_contents(App::TEMPLATES_DIRECTORY . '/home.html');
         $acteurTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/acteur.html');

@@ -36,8 +36,8 @@ class Template
     {
         $navOutput = file_get_contents(App::TEMPLATES_DIRECTORY . '/nav.html');
 
-        if (!empty($_SESSION)) {
-            var_dump($_SESSION);
+        if (isset($_SESSION['isConnected']) && $_SESSION['isConnected']) {
+            $navOutput = preg_replace('/({USER})/', '<a href="/logout">Déconnexion</a>', $navOutput);
         } else {
             $navOutput = preg_replace('/({USER})/', 'Not connected', $navOutput);
         }

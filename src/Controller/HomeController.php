@@ -10,7 +10,7 @@ class HomeController extends Controller
     /**
      * @return void
      */
-    public function action(): void
+    public function home(): void
     {
         $db = new Database();
         $acteurs = $db->handler->query('SELECT * FROM `acteur` LIMIT 5;')->fetchAll();
