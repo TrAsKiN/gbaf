@@ -1,6 +1,11 @@
+:root{
+    --text-color: black;
+    --background-color: white;
+}
+
 body{
-    color: black;
-    background: white;
+    color: var(--text-color);
+    background: var(--background-color);
 }
 img{
     width: auto;
