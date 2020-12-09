@@ -23,7 +23,7 @@ class HomeTemplate extends Template
             $acteurOutput = preg_replace('/({ACTEUR})/', $acteur['acteur'], $acteurOutput);
             $acteurOutput = preg_replace('/({LOGO})/', 'images/' . $acteur['logo'], $acteurOutput);
             $acteurOutput = preg_replace('/({DESCRIPTION})/', nl2br($acteur['description']), $acteurOutput);
-            $acteurOutput = preg_replace('/({LINK})/', '/partners/partner-' . $acteur['id_acteur'], $acteurOutput);
+            $acteurOutput = preg_replace('/({LINK})/', '/partner-' . $acteur['id_acteur'], $acteurOutput);
             $acteurs .= $acteurOutput;
         }
 
