@@ -60,13 +60,11 @@ class App
             case '/lost-password':
                 print_r('Mot de passe perdu');
                 break;
-            case '/partners':
-                print_r('Partenaires');
+            case (preg_match('/partner-(\d+)/', $uri, $id) ? true : false):
+                (new PartnerController())->partner($id[1]);
                 break;
             default:
-                if (preg_match('/partner-(\d+)/', $uri, $id)) {
-                    (new PartnerController())->partner($id[1]);
-                }
+                $this->notFound();
                 break;
         }
 
@@ -75,13 +73,8 @@ class App
          */
         if (ob_get_length()) {
             ob_end_flush();
-            exit;
         }
-
-        /**
-         * No route found
-         */
-        $this->notFound();
+        exit;
     }
 
     /**
