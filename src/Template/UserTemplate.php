@@ -9,9 +9,9 @@ class UserTemplate extends Template
     /**
      * @param string $page
      * @param mixed|null $data
-     * @return void
+     * @return self
      */
-    public function render($page, $data = null): void
+    public function render($page, $data = null): self
     {
         $body = file_get_contents(App::TEMPLATES_DIRECTORY . '/user/user.html');
 
@@ -26,12 +26,22 @@ class UserTemplate extends Template
                 $signupTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/user/signup.html');
                 $body = preg_replace('/({CONTENT})/', $signupTemplate, $body);
                 break;
+            case 'profile':
+                $body = preg_replace('/({TITLE})/', 'Profil', $body);
+                $profileTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/user/profile.html');
+                $body = preg_replace('/({CONTENT})/', $profileTemplate, $body);
+                break;
+            case 'lost-password':
+                $body = preg_replace('/({TITLE})/', 'Mot de passe perdu', $body);
+                $lostPasswordTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/user/lost-password.html');
+                $body = preg_replace('/({CONTENT})/', $lostPasswordTemplate, $body);
+                break;
             default:
                 App::notFound();
         }
 
         $this->output = preg_replace('/({BODY})/', $body, $this->output);
-        
-        print_r($this->output);
+
+        return $this;
     }
 }

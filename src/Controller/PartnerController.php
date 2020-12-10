@@ -4,15 +4,16 @@ namespace GBAF\Controller;
 use GBAF\App;
 use GBAF\Controller;
 use GBAF\Database;
+use GBAF\Template;
 use GBAF\Template\PartnerTemplate;
 
 class PartnerController extends Controller
 {
     /**
      * @param int $id
-     * @return void
+     * @return Template
      */
-    public function partner($id): void
+    public function partner($id): Template
     {
         $db = new Database();
         $query = $db->handler->prepare('SELECT * FROM `partner` WHERE `id` = :id');
@@ -21,6 +22,6 @@ class PartnerController extends Controller
         if (!$partner) {
             App::notFound();
         }
-        (new PartnerTemplate())->render($partner);
+        return (new PartnerTemplate())->render($partner);
     }
 }
