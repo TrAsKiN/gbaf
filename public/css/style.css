@@ -41,11 +41,11 @@ figcaption{
     font-style: italic;
 }
 
-.acteurs{
+.partners{
     margin: auto;
 }
 
-.acteur{
+.partner{
     position: relative;
     display: flex;
     background: whitesmoke;
@@ -53,36 +53,46 @@ figcaption{
     padding: 1rem;
     margin: 1rem auto;
 }
-.acteur:first-child, .acteur:last-child{
+.partner:first-child, .partner:last-child{
     margin: auto;
 }
-.acteur > figure{
+.partner > figure{
     flex: 2;
 }
-.acteur > figure img{
+.partner > figure img{
     width: 100%;
     height: auto;
 }
-.acteur > div{
+.partner > div{
     flex: 7;
     margin: 0 1rem;
 }
-.acteur > p{
+.partner > p{
     position: absolute;
     bottom: 0;
     right: 2rem;
 }
-.acteur > p a{
+.partner > p a{
     display: inline-block;
     padding: .2rem .4rem;
     border-radius: .2rem;
     color: gray;
     background: lightgray;
 }
-.acteur > p a:hover{
+.partner > p a:hover{
     color: black;
     background: darkgray;
     text-decoration: none;
+}
+
+/**
+ *
+ */
+.alert{
+    margin: 1rem;
+    padding: 1rem;
+    background: whitesmoke;
+    border-radius: 1rem;
 }
 
 /**

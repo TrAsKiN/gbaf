@@ -23,17 +23,9 @@ class Template
             $this->output = preg_replace('/({TITLE})/', $this->title, $this->output);
         }
 
-        $this->generateNav();
-
-        if (!empty($this->before)) {
-            $this->output = preg_replace('/({DEBUG})/', '<pre class="debug">' . $this->before . '</pre>', $this->output);
-        } else {
-            $this->output = preg_replace('/({DEBUG})/', '', $this->output);
-        }
-    }
-
-    protected function generateNav()
-    {
+        /**
+         * Displays navigation
+         */
         $navOutput = file_get_contents(App::TEMPLATES_DIRECTORY . '/nav.html');
 
         if (isset($_SESSION['isConnected']) && $_SESSION['isConnected']) {
@@ -43,5 +35,28 @@ class Template
         }
 
         $this->output = preg_replace('/({NAV})/', $navOutput, $this->output);
+
+        /**
+         * Displays flash messages
+         */
+        $flashOutput = file_get_contents(App::TEMPLATES_DIRECTORY . '/flash.html');
+        if (isset($_SESSION['flashMessages']) && !empty($_SESSION['flashMessages'])) {
+            while($message = array_shift($_SESSION['flashMessages'])) {
+                $flashOutput = preg_replace('/({MESSAGE})/', $message, $flashOutput);
+
+                $this->output = preg_replace('/({FLASH})/', $flashOutput, $this->output);
+            }
+        } else {
+            $this->output = preg_replace('/({FLASH})/', '', $this->output);
+        }
+
+        /**
+         * Displays debug
+         */
+        if (!empty($this->before)) {
+            $this->output = preg_replace('/({DEBUG})/', '<pre class="debug">' . $this->before . '</pre>', $this->output);
+        } else {
+            $this->output = preg_replace('/({DEBUG})/', '', $this->output);
+        }
     }
 }

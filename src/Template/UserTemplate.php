@@ -13,18 +13,18 @@ class UserTemplate extends Template
      */
     public function render($page, $data = null): void
     {
-        $body = file_get_contents(App::TEMPLATES_DIRECTORY . '/user.html');
+        $body = file_get_contents(App::TEMPLATES_DIRECTORY . '/user/user.html');
 
         switch ($page) {
             case 'login':
                 $body = preg_replace('/({TITLE})/', 'Connexion', $body);
-                $loginTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/login.html');
-                if (isset($_SESSION['isConnected'])) {
-                    $loginTemplate = preg_replace('/({MESSAGE})/', '<p>Vous êtes connecté !</p>', $loginTemplate);
-                } else {
-                    $loginTemplate = preg_replace('/({MESSAGE})/', '', $loginTemplate);
-                }
+                $loginTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/user/login.html');
                 $body = preg_replace('/({CONTENT})/', $loginTemplate, $body);
+                break;
+            case 'signup':
+                $body = preg_replace('/({TITLE})/', 'Inscription', $body);
+                $signupTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/user/signup.html');
+                $body = preg_replace('/({CONTENT})/', $signupTemplate, $body);
                 break;
             default:
                 App::notFound();

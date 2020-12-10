@@ -49,7 +49,7 @@ class App
                 (new UserController())->login();
                 break;
             case '/signup':
-                print_r('Inscription');
+                (new UserController())->signup();
                 break;
             case '/logout':
                 (new UserController())->logout();

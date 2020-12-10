@@ -15,7 +15,7 @@ class PartnerController extends Controller
     public function partner($id): void
     {
         $db = new Database();
-        $query = $db->handler->prepare('SELECT * FROM `acteur` WHERE `id_acteur` = :id');
+        $query = $db->handler->prepare('SELECT * FROM `partner` WHERE `id` = :id');
         $query->execute([':id' => $id]);
         $partner = $query->fetch();
         if (!$partner) {

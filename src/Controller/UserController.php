@@ -12,8 +12,25 @@ class UserController extends Controller
      */
     public function login(): void
     {
-        $_SESSION['isConnected'] = true;
+        if (!empty($_POST)) {
+            $_SESSION['isConnected'] = true;
+            $this->addFlash('Vous êtes connecté !');
+            App::redirect('/');
+        }
         (new UserTemplate())->render('login');
+    }
+
+    /**
+     * @return void
+     */
+    public function signup(): void
+    {
+        if (!empty($_POST)) {
+            $_SESSION['isConnected'] = true;
+            $this->addFlash('Vous êtes inscrits !');
+            App::redirect('/profile');
+        }
+        (new UserTemplate())->render('signup');
     }
 
     /**

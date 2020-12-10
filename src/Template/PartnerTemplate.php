@@ -12,9 +12,11 @@ class PartnerTemplate extends Template
      */
     public function render($data = null): void
     {
-        $body = file_get_contents(App::TEMPLATES_DIRECTORY . '/partner.html');
+        $body = file_get_contents(App::TEMPLATES_DIRECTORY . '/partner/partner.html');
 
-        $body = preg_replace('/({TITLE})/', $data['acteur'], $body);
+        $body = preg_replace('/({NAME})/', $data['name'], $body);
+        $body = preg_replace('/({LOGO})/', $data['logo'], $body);
+        $body = preg_replace('/({DESCRIPTION})/', $data['description'], $body);
 
         $this->output = preg_replace('/({BODY})/', $body, $this->output);
         

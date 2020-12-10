@@ -13,7 +13,7 @@ class HomeController extends Controller
     public function home(): void
     {
         $db = new Database();
-        $acteurs = $db->handler->query('SELECT * FROM `acteur` LIMIT 5;')->fetchAll();
+        $acteurs = $db->handler->query('SELECT * FROM `partner` LIMIT 5;')->fetchAll();
         (new HomeTemplate())->render($acteurs);
     }
 }
