@@ -3,34 +3,58 @@ namespace GBAF\Controller;
 
 use GBAF\App;
 use GBAF\Controller;
+use GBAF\Template;
 use GBAF\Template\UserTemplate;
 
 class UserController extends Controller
 {
     /**
-     * @return void
+     * @return Template
      */
-    public function login(): void
+    public function login(): Template
     {
         if (!empty($_POST)) {
             $_SESSION['isConnected'] = true;
             $this->addFlash('Vous êtes connecté !');
             App::redirect('/');
         }
-        (new UserTemplate())->render('login');
+        return (new UserTemplate())->render('login');
     }
 
     /**
-     * @return void
+     * @return Template
      */
-    public function signup(): void
+    public function signup(): Template
     {
         if (!empty($_POST)) {
             $_SESSION['isConnected'] = true;
             $this->addFlash('Vous êtes inscrits !');
             App::redirect('/profile');
         }
-        (new UserTemplate())->render('signup');
+        return (new UserTemplate())->render('signup');
+    }
+
+    /**
+     * @return Template
+     */
+    public function profile(): Template
+    {
+        if (!empty($_POST)) {
+            $this->addFlash('Modifications effectuées !');
+        }
+        return (new UserTemplate())->render('profile');
+    }
+
+    /**
+     * @return Template
+     */
+    public function lostPassword(): Template
+    {
+        if (!empty($_POST)) {
+            $this->addFlash('Nouveau mot de passe enregistré !');
+            App::redirect('/login');
+        }
+        return (new UserTemplate())->render('lost-password');
     }
 
     /**
@@ -39,6 +63,6 @@ class UserController extends Controller
     public function logout(): void
     {
         unset($_SESSION['isConnected']);
-        App::redirect($_SERVER['HTTP_REFERER']);
+        App::redirect('/login');
     }
 }

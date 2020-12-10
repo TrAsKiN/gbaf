@@ -8,9 +8,9 @@ class PartnerTemplate extends Template
 {
     /**
      * @param mixed|null $data
-     * @return void
+     * @return self
      */
-    public function render($data = null): void
+    public function render($data = null): self
     {
         $body = file_get_contents(App::TEMPLATES_DIRECTORY . '/partner/partner.html');
 
@@ -19,7 +19,7 @@ class PartnerTemplate extends Template
         $body = preg_replace('/({DESCRIPTION})/', nl2br($data['description']), $body);
 
         $this->output = preg_replace('/({BODY})/', $body, $this->output);
-        
-        print_r($this->output);
+
+        return $this;
     }
 }

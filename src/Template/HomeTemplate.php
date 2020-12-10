@@ -8,9 +8,9 @@ class HomeTemplate extends Template
 {
     /**
      * @param mixed|null $data
-     * @return void
+     * @return self
      */
-    public function render($data = null): void
+    public function render($data = null): self
     {
         $body = file_get_contents(App::TEMPLATES_DIRECTORY . '/home/home.html');
         $partnerTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/home/partner.html');
@@ -34,7 +34,7 @@ class HomeTemplate extends Template
         }
 
         $this->output = preg_replace('/({BODY})/', $body, $this->output);
-        
-        print_r($this->output);
+
+        return $this;
     }
 }

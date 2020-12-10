@@ -10,6 +10,11 @@ class App
     const TEMPLATES_DIRECTORY = __DIR__ . '/../templates';
 
     /**
+     * @var Template
+     */
+    private $output;
+
+    /**
      * Main application
      * 
      * @return void
@@ -43,25 +48,25 @@ class App
          */
         switch ($uri) {
             case '/':
-                (new HomeController())->home();
+                $this->output = (new HomeController())->home();
                 break;
             case '/login':
-                (new UserController())->login();
+                $this->output = (new UserController())->login();
                 break;
             case '/signup':
-                (new UserController())->signup();
+                $this->output = (new UserController())->signup();
                 break;
             case '/logout':
-                (new UserController())->logout();
+                $this->output = (new UserController())->logout();
                 break;
             case '/profile':
-                print_r('Profil');
+                $this->output = (new UserController())->profile();
                 break;
             case '/lost-password':
-                print_r('Mot de passe perdu');
+                $this->output = (new UserController())->lostPassword();
                 break;
             case (preg_match('/partner-(\d+)/', $uri, $id) ? true : false):
-                (new PartnerController())->partner($id[1]);
+                $this->output = (new PartnerController())->partner($id[1]);
                 break;
             default:
                 $this->notFound();
@@ -71,10 +76,7 @@ class App
         /**
          * Sending to the browser if there is content
          */
-        if (ob_get_length()) {
-            ob_end_flush();
-        }
-        exit;
+        $this->output->send();
     }
 
     /**

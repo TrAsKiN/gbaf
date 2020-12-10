@@ -30,8 +30,6 @@ class Template
 
         if (isset($_SESSION['isConnected']) && $_SESSION['isConnected']) {
             $navOutput = preg_replace('/({USER})/', '<a href="/logout">Déconnexion</a>', $navOutput);
-        } else {
-            $navOutput = preg_replace('/({USER})/', 'Not connected', $navOutput);
         }
 
         $this->output = preg_replace('/({NAV})/', $navOutput, $this->output);
@@ -46,17 +44,33 @@ class Template
 
                 $this->output = preg_replace('/({FLASH})/', $flashOutput, $this->output);
             }
-        } else {
-            $this->output = preg_replace('/({FLASH})/', '', $this->output);
         }
+    }
 
+    /**
+     * Clear and send to the browser
+     * 
+     * @return void
+     */
+    public function send(): void
+    {
         /**
          * Displays debug
          */
         if (!empty($this->before)) {
             $this->output = preg_replace('/({DEBUG})/', '<pre class="debug">' . $this->before . '</pre>', $this->output);
-        } else {
-            $this->output = preg_replace('/({DEBUG})/', '', $this->output);
         }
+
+        /**
+         * Remove all empty template variables
+         */
+        $this->output = preg_replace('/({\w*})/', '', $this->output);
+
+        print_r($this->output);
+        
+        if (ob_get_length()) {
+            ob_end_flush();
+        }
+        exit;
     }
 }
