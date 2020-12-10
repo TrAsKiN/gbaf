@@ -16,7 +16,7 @@ class PartnerTemplate extends Template
 
         $body = preg_replace('/({NAME})/', $data['name'], $body);
         $body = preg_replace('/({LOGO})/', $data['logo'], $body);
-        $body = preg_replace('/({DESCRIPTION})/', $data['description'], $body);
+        $body = preg_replace('/({DESCRIPTION})/', nl2br($data['description']), $body);
 
         $this->output = preg_replace('/({BODY})/', $body, $this->output);
         
