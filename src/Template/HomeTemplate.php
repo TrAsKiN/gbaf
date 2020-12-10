@@ -12,25 +12,25 @@ class HomeTemplate extends Template
      */
     public function render($data = null): void
     {
-        $body = file_get_contents(App::TEMPLATES_DIRECTORY . '/home.html');
-        $acteurTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/acteur.html');
+        $body = file_get_contents(App::TEMPLATES_DIRECTORY . '/home/home.html');
+        $partnerTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/home/partner.html');
 
         $body = preg_replace('/({TITLE})/', $this->title, $body);
 
-        $acteurs = '';
-        foreach($data as $acteur) {
-            $acteurOutput = $acteurTemplate;
-            $acteurOutput = preg_replace('/({ACTEUR})/', $acteur['acteur'], $acteurOutput);
-            $acteurOutput = preg_replace('/({LOGO})/', 'images/' . $acteur['logo'], $acteurOutput);
-            $acteurOutput = preg_replace('/({DESCRIPTION})/', nl2br($acteur['description']), $acteurOutput);
-            $acteurOutput = preg_replace('/({LINK})/', '/partner-' . $acteur['id_acteur'], $acteurOutput);
-            $acteurs .= $acteurOutput;
+        $partners = '';
+        foreach($data as $partner) {
+            $partnerOutput = $partnerTemplate;
+            $partnerOutput = preg_replace('/({NAME})/', $partner['name'], $partnerOutput);
+            $partnerOutput = preg_replace('/({LOGO})/', 'images/' . $partner['logo'], $partnerOutput);
+            $partnerOutput = preg_replace('/({DESCRIPTION})/', nl2br($partner['description']), $partnerOutput);
+            $partnerOutput = preg_replace('/({LINK})/', '/partner-' . $partner['id'], $partnerOutput);
+            $partners .= $partnerOutput;
         }
 
-        if (!empty($acteurs)) {
-            $body = preg_replace('/({ACTEURS})/', $acteurs, $body);
+        if (!empty($partners)) {
+            $body = preg_replace('/({PARTNERS})/', $partners, $body);
         } else {
-            $body = preg_replace('/({ACTEURS})/', '<p>Aucun acteur à afficher.</p>', $body);
+            $body = preg_replace('/({PARTNERS})/', '<p>Aucun acteur à afficher.</p>', $body);
         }
 
         $this->output = preg_replace('/({BODY})/', $body, $this->output);
