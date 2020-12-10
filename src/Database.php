@@ -3,7 +3,7 @@ namespace GBAF;
 
 class Database
 {
-    public $handler = null;
+    protected $handler = null;
 
     public function __construct()
     {
@@ -24,5 +24,19 @@ class Database
     public function __destruct()
     {
         $this->handler = null;
+    }
+
+    public function getPartners()
+    {
+        $query = $this->handler->prepare('SELECT * FROM `partner`;');
+        $query->execute();
+        return $query->fetchAll();
+    }
+
+    public function getPartner($id)
+    {
+        $query = $this->handler->prepare('SELECT * FROM `partner` WHERE `id` = :id;');
+        $query->execute([':id' => $id]);
+        return $query->fetch();
     }
 }
