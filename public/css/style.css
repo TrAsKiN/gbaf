@@ -11,6 +11,12 @@ img{
     max-width: 100%;
     height: auto;
 }
+label, input{
+    display: block;
+}
+form div{
+    margin-bottom: 1rem;
+}
 
 /**
  * Nav
