@@ -8,8 +8,8 @@ body{
     background: var(--background-color);
 }
 img{
-    width: auto;
-    height: 100%;
+    max-width: 100%;
+    height: auto;
 }
 
 /**
@@ -21,6 +21,10 @@ nav{
     justify-content: space-between;
     padding: 1rem;
     background: lightgray;
+}
+nav img{
+    width: auto;
+    height: 100%;
 }
 nav .profile{
     align-self: center;
@@ -86,12 +90,12 @@ figcaption{
 }
 
 /**
- *
+ * Alert messages
  */
 .alert{
     margin: 1rem;
     padding: 1rem;
-    background: whitesmoke;
+    background: lightblue;
     border-radius: 1rem;
 }
 
