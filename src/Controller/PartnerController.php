@@ -16,9 +16,7 @@ class PartnerController extends Controller
     public function partner($id): Template
     {
         $db = new Database();
-        $query = $db->handler->prepare('SELECT * FROM `partner` WHERE `id` = :id');
-        $query->execute([':id' => $id]);
-        $partner = $query->fetch();
+        $partner = $db->getPartner($id);
         if (!$partner) {
             App::notFound();
         }
