@@ -11,6 +11,7 @@ class Controller
     {
         $this->db = new Database();
     }
+
     protected function addFlash(string $message): void
     {
         $_SESSION['flashMessages'][] = $message;
