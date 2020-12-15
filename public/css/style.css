@@ -19,7 +19,7 @@ form div{
 }
 
 /**
- * Nav
+ * Navigation
  */
 nav{
     display: flex;
@@ -34,6 +34,7 @@ nav img{
 }
 nav .profile{
     align-self: center;
+    text-align: right;
 }
 
 /**

@@ -12,13 +12,8 @@ class App
     /**
      * @var Template
      */
-    private $output;
+    private $content;
 
-    /**
-     * Main application
-     * 
-     * @return void
-     */
     public function run(): void
     {
         $uri = $_SERVER['REQUEST_URI'];
@@ -48,25 +43,25 @@ class App
          */
         switch ($uri) {
             case '/':
-                $this->output = (new HomeController())->home();
+                $this->content = (new HomeController())->home();
                 break;
             case '/login':
-                $this->output = (new UserController())->login();
+                $this->content = (new UserController())->login();
                 break;
             case '/signup':
-                $this->output = (new UserController())->signup();
+                $this->content = (new UserController())->signup();
                 break;
             case '/logout':
-                $this->output = (new UserController())->logout();
+                $this->content = (new UserController())->logout();
                 break;
             case '/profile':
-                $this->output = (new UserController())->profile();
+                $this->content = (new UserController())->profile();
                 break;
             case '/lost-password':
-                $this->output = (new UserController())->lostPassword();
+                $this->content = (new UserController())->lostPassword();
                 break;
             case (preg_match('/partner-(\d+)/', $uri, $id) ? true : false):
-                $this->output = (new PartnerController())->partner($id[1]);
+                $this->content = (new PartnerController())->partner($id[1]);
                 break;
             default:
                 $this->notFound();
@@ -76,15 +71,9 @@ class App
         /**
          * Sending to the browser if there is content
          */
-        $this->output->send();
+        $this->content->send();
     }
 
-    /**
-     * Redirect to a new url
-     * 
-     * @param string $url The new URL
-     * @return void
-     */
     public static function redirect(string $url): void
     {
         header('Location: ' . $url);
@@ -92,11 +81,6 @@ class App
         exit;
     }
 
-    /**
-     * Return 404 Not Found
-     * 
-     * @return void
-     */
     public static function notFound(): void
     {
         header('HTTP/1.1 404 Not Found');

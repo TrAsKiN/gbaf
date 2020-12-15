@@ -1,20 +1,17 @@
 <?php
 namespace GBAF;
 
+use GBAF\Database;
+
 class Template
 {
     public $title = 'Groupement Banque-Assurance Français';
     protected $output = '';
     protected $before = '';
 
-    /**
-     * @param string $title
-     */
-    public function __construct($title = null)
+    public function __construct(?string $title = null)
     {
-        $this->before = ob_get_contents();
-        ob_clean();
-
+        $db = new Database();
         $this->output = file_get_contents(App::TEMPLATES_DIRECTORY . '/main.html');
 
         if ($title) {
@@ -29,22 +26,27 @@ class Template
         $navOutput = file_get_contents(App::TEMPLATES_DIRECTORY . '/nav.html');
 
         if (isset($_SESSION['isConnected']) && $_SESSION['isConnected']) {
-            $navOutput = preg_replace('/({USER})/', '<a href="/logout">Déconnexion</a>', $navOutput);
+            $userTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/user.html');
+            $user = $db->getUserByUsername($_SESSION['username']);
+            if (!$user) {
+                $this->addFlash("Erreur avec les informations utilisateur !");
+                App::redirect('/logout');
+            }
+            $userTemplate = preg_replace('/({LASTNAME})/', $user['lastname'], $userTemplate);
+            $userTemplate = preg_replace('/({FIRSTNAME})/', $user['firstname'], $userTemplate);
+            $navOutput = preg_replace('/({USER})/', $userTemplate, $navOutput);
         }
 
         $this->output = preg_replace('/({NAV})/', $navOutput, $this->output);
     }
 
-    /**
-     * Clear and send to the browser
-     * 
-     * @return void
-     */
     public function send(): void
     {
         /**
          * Displays debug
          */
+        $this->before = ob_get_contents();
+        ob_clean();
         if (!empty($this->before)) {
             $this->output = preg_replace('/({DEBUG})/', '<pre class="debug">' . $this->before . '</pre>', $this->output);
         }
@@ -74,5 +76,10 @@ class Template
             ob_end_flush();
         }
         exit;
+    }
+
+    protected function addFlash(string $message): void
+    {
+        $_SESSION['flashMessages'][] = $message;
     }
 }

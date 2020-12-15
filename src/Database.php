@@ -26,17 +26,52 @@ class Database
         $this->handler = null;
     }
 
-    public function getPartners()
+    public function getPartners(): array
     {
         $query = $this->handler->prepare('SELECT * FROM `partner`;');
         $query->execute();
         return $query->fetchAll();
     }
 
-    public function getPartner($id)
+    public function getPartner(int $id): array
     {
         $query = $this->handler->prepare('SELECT * FROM `partner` WHERE `id` = :id;');
         $query->execute([':id' => $id]);
         return $query->fetch();
+    }
+
+    public function getGrades(int $partnerId): array
+    {
+        $query = $this->handler->prepare('SELECT * FROM `grade` WHERE `id_partner` = :partnerId;');
+        $query->execute([':partnerId' => $partnerId]);
+        return $query->fetchAll();
+    }
+
+    public function getComments(int $partnerId): array
+    {
+        $query = $this->handler->prepare('SELECT * FROM `comment` WHERE `id_partner` = :partnerId;');
+        $query->execute([':partnerId' => $partnerId]);
+        return $query->fetchAll();
+    }
+
+    public function getUserByUsername(string $username): array
+    {
+        $query = $this->handler->prepare('SELECT * FROM `user` WHERE `username` = :username;');
+        $query->execute([':username' => $username]);
+        return $query->fetch();
+    }
+
+    public function addUser(array $newUser): bool
+    {
+        $query = $this->handler->prepare('INSERT INTO `user` (`lastname`, `firstname`, `username`, `password`, `question`, `answer`)
+                                            VALUES (:lastname, :firstname, :username, :passwd, :question, :answer);');
+        return $query->execute([
+            ':lastname' => $newUser['lastname'],
+            ':firstname' => $newUser['firstname'],
+            ':username' => $newUser['username'],
+            ':passwd' => $newUser['password'],
+            ':question' => $newUser['question'],
+            ':answer' => $newUser['answer']
+        ]);
     }
 }
