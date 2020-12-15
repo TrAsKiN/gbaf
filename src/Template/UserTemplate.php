@@ -6,12 +6,7 @@ use GBAF\Template;
 
 class UserTemplate extends Template
 {
-    /**
-     * @param string $page
-     * @param mixed|null $data
-     * @return self
-     */
-    public function render($page, $data = null): self
+    public function render(string $page, ?array $data = null): self
     {
         $body = file_get_contents(App::TEMPLATES_DIRECTORY . '/user/user.html');
 
@@ -29,12 +24,29 @@ class UserTemplate extends Template
             case 'profile':
                 $body = preg_replace('/({TITLE})/', 'Profil', $body);
                 $profileTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/user/profile.html');
+                $profileTemplate = preg_replace('/({LASTNAME})/', $data['lastname'], $profileTemplate);
+                $profileTemplate = preg_replace('/({FIRSTNAME})/', $data['firstname'], $profileTemplate);
+                $profileTemplate = preg_replace('/({QUESTION})/', $data['question'], $profileTemplate);
+                $profileTemplate = preg_replace('/({ANSWER})/', $data['answer'], $profileTemplate);
                 $body = preg_replace('/({CONTENT})/', $profileTemplate, $body);
                 break;
-            case 'lost-password':
+            case 'check':
                 $body = preg_replace('/({TITLE})/', 'Mot de passe perdu', $body);
-                $lostPasswordTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/user/lost-password.html');
-                $body = preg_replace('/({CONTENT})/', $lostPasswordTemplate, $body);
+                $checkTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/user/lost-password/check.html');
+                $body = preg_replace('/({CONTENT})/', $checkTemplate, $body);
+                break;
+            case 'question':
+                $body = preg_replace('/({TITLE})/', 'Mot de passe perdu', $body);
+                $questionTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/user/lost-password/question.html');
+                $questionTemplate = preg_replace('/({USERNAME})/', $data['username'], $questionTemplate);
+                $questionTemplate = preg_replace('/({QUESTION})/', $data['question'], $questionTemplate);
+                $body = preg_replace('/({CONTENT})/', $questionTemplate, $body);
+                break;
+            case 'password':
+                $body = preg_replace('/({TITLE})/', 'Mot de passe perdu', $body);
+                $passwordTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/user/lost-password/password.html');
+                $passwordTemplate = preg_replace('/({USERNAME})/', $data['username'], $passwordTemplate);
+                $body = preg_replace('/({CONTENT})/', $passwordTemplate, $body);
                 break;
             default:
                 App::notFound();

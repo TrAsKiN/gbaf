@@ -6,11 +6,7 @@ use GBAF\Template;
 
 class HomeTemplate extends Template
 {
-    /**
-     * @param mixed|null $data
-     * @return self
-     */
-    public function render($data = null): self
+    public function render(?array $data): self
     {
         $body = file_get_contents(App::TEMPLATES_DIRECTORY . '/home/home.html');
         $partnerTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/home/partner.html');
@@ -22,6 +18,11 @@ class HomeTemplate extends Template
             $partnerOutput = $partnerTemplate;
             $partnerOutput = preg_replace('/({NAME})/', $partner['name'], $partnerOutput);
             $partnerOutput = preg_replace('/({LOGO})/', 'images/' . $partner['logo'], $partnerOutput);
+            if ($partner['website']) {
+                $websiteTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/home/website.html');
+                $websiteTemplate = preg_replace('/({URL})/', $partner['website'], $websiteTemplate);
+                $partnerOutput = preg_replace('/({WEBSITE})/', $websiteTemplate, $partnerOutput);
+            }
             $partnerOutput = preg_replace('/({DESCRIPTION})/', nl2br($partner['description']), $partnerOutput);
             $partnerOutput = preg_replace('/({LINK})/', '/partner-' . $partner['id'], $partnerOutput);
             $partners .= $partnerOutput;
@@ -30,7 +31,7 @@ class HomeTemplate extends Template
         if (!empty($partners)) {
             $body = preg_replace('/({PARTNERS})/', $partners, $body);
         } else {
-            $body = preg_replace('/({PARTNERS})/', '<p>Aucun acteur à afficher.</p>', $body);
+            $body = preg_replace('/({PARTNERS})/', '<p>Aucun acteur/partenaire à afficher.</p>', $body);
         }
 
         $this->output = preg_replace('/({BODY})/', $body, $this->output);

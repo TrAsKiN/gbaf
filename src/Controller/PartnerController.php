@@ -3,23 +3,23 @@ namespace GBAF\Controller;
 
 use GBAF\App;
 use GBAF\Controller;
-use GBAF\Database;
 use GBAF\Template;
 use GBAF\Template\PartnerTemplate;
 
 class PartnerController extends Controller
 {
-    /**
-     * @param int $id
-     * @return Template
-     */
-    public function partner($id): Template
+    public function partner(int $id): Template
     {
-        $db = new Database();
-        $partner = $db->getPartner($id);
+        $partner = $this->db->getPartner($id);
         if (!$partner) {
             App::notFound();
         }
-        return (new PartnerTemplate())->render($partner);
+        $grades = $this->db->getGrades($id);
+        $comments = $this->db->getComments($id);
+        return (new PartnerTemplate())->render([
+            'partner' => $partner,
+            'grades' => $grades,
+            'comments' => $comments
+        ]);
     }
 }
