@@ -54,7 +54,7 @@ class Database
         return $query->fetchAll();
     }
 
-    public function getUserByUsername(string $username): array
+    public function getUserByUsername(string $username)
     {
         $query = $this->handler->prepare('SELECT * FROM `user` WHERE `username` = :username;');
         $query->execute([':username' => $username]);
@@ -73,5 +73,25 @@ class Database
             ':question' => $newUser['question'],
             ':answer' => $newUser['answer']
         ]);
+    }
+
+    public function updateLastname(string $newLastname)
+    {
+
+    }
+
+    public function updateFirstname(string $newFirstname)
+    {
+
+    }
+
+    public function updateQuestion(string $newQuestion)
+    {
+
+    }
+
+    public function updateAnswer(string $newAnswer)
+    {
+
     }
 }

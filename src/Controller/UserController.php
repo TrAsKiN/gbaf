@@ -59,6 +59,18 @@ class UserController extends Controller
         if (!empty($_POST)) {
             $securedPost = array_map('htmlspecialchars', $_POST);
             if (password_verify($securedPost['password'], $user['password'])) {
+                if (!empty($securedPost['lastname']) && $securedPost['lastname'] != $user['lastname']) {
+                    $this->db->updateLastname($securedPost['lastname']);
+                }
+                if (!empty($securedPost['firstname']) && $securedPost['firstname'] != $user['firstname']) {
+                    $this->db->updateFirstname($securedPost['firstname']);
+                }
+                if (!empty($securedPost['question']) && $securedPost['question'] != $user['question']) {
+                    $this->db->updateQuestion($securedPost['question']);
+                }
+                if (!empty($securedPost['answer']) && $securedPost['answer'] != $user['answer']) {
+                    $this->db->updateAnswer($securedPost['answer']);
+                }
                 $this->addFlash("Modifications effectuées !");
                 App::redirect('/profile');
             } else {
