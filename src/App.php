@@ -52,7 +52,7 @@ class App
                 $this->content = (new UserController())->signup();
                 break;
             case '/logout':
-                $this->content = (new UserController())->logout();
+                (new UserController())->logout();
                 break;
             case '/profile':
                 $this->content = (new UserController())->profile();
@@ -60,7 +60,7 @@ class App
             case '/lost-password':
                 $this->content = (new UserController())->lostPassword();
                 break;
-            case (preg_match('/partner-(\d+)/', $uri, $id) ? true : false):
+            case preg_match('/partner-(\d+)/', $uri, $id):
                 $this->content = (new PartnerController())->partner($id[1]);
                 break;
             default:
