@@ -63,8 +63,10 @@ class Database
 
     public function addUser(array $newUser): bool
     {
-        $query = $this->handler->prepare('INSERT INTO `user` (`lastname`, `firstname`, `username`, `password`, `question`, `answer`)
-                                            VALUES (:lastname, :firstname, :username, :passwd, :question, :answer);');
+        $query = $this->handler->prepare(
+            'INSERT INTO `user` (`lastname`, `firstname`, `username`, `password`, `question`, `answer`)
+                VALUES (:lastname, :firstname, :username, :passwd, :question, :answer);'
+        );
         return $query->execute([
             ':lastname' => $newUser['lastname'],
             ':firstname' => $newUser['firstname'],
