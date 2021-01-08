@@ -60,7 +60,7 @@ class App
             case '/lost-password':
                 $this->content = (new UserController())->lostPassword();
                 break;
-            case preg_match('/partner-(\d+)/', $uri, $id):
+            case (preg_match('/partner-(\d+)/', $uri, $id) ? true : false):
                 $this->content = (new PartnerController())->partner($id[1]);
                 break;
             default:
@@ -85,5 +85,10 @@ class App
     {
         header('HTTP/1.1 404 Not Found');
         exit;
+    }
+
+    public static function addFlash(string $message): void
+    {
+        $_SESSION['flashMessages'][] = $message;
     }
 }
