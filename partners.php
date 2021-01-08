@@ -4,6 +4,11 @@ require __DIR__ . '/includes/init.php';
 $title = 'Groupement Banque-Assurance Français';
 
 $partner = getPartner(htmlspecialchars($_GET["id"]));
+
+if (!$partner) {
+    notFound();
+}
+
 $grades = getGrades(htmlspecialchars($_GET["id"]));
 $comments = getComments(htmlspecialchars($_GET["id"]));
 

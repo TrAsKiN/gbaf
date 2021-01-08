@@ -1,3 +1,16 @@
+<?php
+$user = null;
+
+if (isset($_SESSION['isConnected']) && $_SESSION['isConnected']) {
+    global $user;
+    $user = getUserByUsername($_SESSION['username']);
+    if (!$user) {
+        addFlash("Erreur avec les informations utilisateur !");
+        redirect('/user.php?action=logout');
+    }
+}
+?>
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -10,21 +23,31 @@
 <body>
     <nav>
         <div>
-            <a href="./"><img src="images/logo.png" alt="GBAF"></a>
+            <a href="/"><img src="images/logo.png" alt="GBAF"></a>
         </div>
+
+        <?php
+        if ($user) {
+        ?>
+
         <div class="profile">
 
             <div>
-                {LASTNAME} {FIRSTNAME}
+                <?= $user['lastname'] . ' ' . $user['firstname']; ?>
             </div>
             <div>
-                <a href="user.php">Modifer mon profil</a>
+                <a href="../user.php">Modifer mon profil</a>
             </div>
             <div>
-                <a href="user.php?action=logout">Déconnexion</a>
+                <a href="../user.php?action=logout">Déconnexion</a>
             </div>
 
         </div>
+
+        <?php
+        }
+        ?>
+
     </nav>
 
     <?php
