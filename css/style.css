@@ -1,0 +1,143 @@
+:root{
+    --text-color: black;
+    --background-color: white;
+}
+
+body{
+    color: var(--text-color);
+    background: var(--background-color);
+}
+img{
+    max-width: 100%;
+    height: auto;
+}
+label, input{
+    display: block;
+}
+form div{
+    margin-bottom: 1rem;
+}
+
+/**
+ * Navigation
+ */
+nav{
+    display: flex;
+    max-height: 8rem;
+    justify-content: space-between;
+    padding: 1rem;
+    background: lightgray;
+}
+nav img{
+    width: auto;
+    height: 100%;
+}
+nav .profile{
+    align-self: center;
+    text-align: right;
+}
+
+/**
+ * Home
+ */
+main{
+    margin: 1rem;
+}
+
+figure{
+    text-align: center;
+}
+figcaption{
+    color: gray;
+    font-style: italic;
+}
+
+.partners{
+    margin: auto;
+}
+
+.partner{
+    position: relative;
+    display: flex;
+    background: whitesmoke;
+    border-radius: 1rem;
+    padding: 1rem;
+    padding-bottom: 2.5rem;
+    margin: 1rem auto;
+}
+.partner:first-child, .partner:last-child{
+    margin: auto;
+}
+.partner > figure{
+    flex: 2;
+}
+.partner > figure img{
+    width: 100%;
+    height: auto;
+}
+.partner > div{
+    flex: 7;
+    margin: 0 1rem;
+}
+.partner > p{
+    position: absolute;
+    bottom: 0;
+    right: 2rem;
+}
+.partner > p a{
+    display: inline-block;
+    padding: .2rem .4rem;
+    border-radius: .2rem;
+    color: gray;
+    background: lightgray;
+}
+.partner > p a:hover{
+    color: black;
+    background: darkgray;
+    text-decoration: none;
+}
+
+/**
+ * Alert messages
+ */
+.alert{
+    margin: 1rem;
+    padding: 1rem;
+    background: lightblue;
+    border-radius: 1rem;
+}
+
+/**
+ * Footer
+ */
+footer{
+    display: flex;
+    color: whitesmoke;
+    background: gray;
+}
+footer ul{
+    list-style: none;
+    padding: 0;
+    margin: 1rem auto;
+    display: flex;
+}
+footer ul li:nth-child(n+2){
+    border-left: 1px solid lightgray;
+}
+footer ul li a{
+    color: whitesmoke;
+    margin: auto 1rem;
+}
+footer ul li a:hover{
+    color: white;
+}
+
+/* To be deleted */
+.debug{
+    /* display: none; */
+    margin: 1rem;
+    padding: 1rem;
+    color: gray;
+    background: whitesmoke;
+    font-size: small;
+}
