@@ -66,22 +66,32 @@ function addUser(array $newUser) {
     ]);
 }
 
-function updateLastname(string $newLastname) {
+function updateLastname(string $newLastname, int $id) {
     global $handler;
+    $query = $handler->prepare('UPDATE `user` SET `lastname` = :lastname WHERE `id` = :id;');
+    return $query->execute([':lastname' => $newLastname]);
 }
 
-function updateFirstname(string $newFirstname) {
+function updateFirstname(string $newFirstname, int $id) {
     global $handler;
+    $query = $handler->prepare('UPDATE `user` SET `firstname` = :firstname WHERE `id` = :id;');
+    return $query->execute([':firstname' => $newFirstname]);
 }
 
-function updateQuestion(string $newQuestion) {
+function updateQuestion(string $newQuestion, int $id) {
     global $handler;
+    $query = $handler->prepare('UPDATE `user` SET `question` = :question WHERE `id` = :id;');
+    return $query->execute([':question' => $newQuestion]);
 }
 
-function updateAnswer(string $newAnswer) {
+function updateAnswer(string $newAnswer, int $id) {
     global $handler;
+    $query = $handler->prepare('UPDATE `user` SET `answer` = :answer WHERE `id` = :id;');
+    return $query->execute([':answer' => $newAnswer]);
 }
 
-function updatePassword(string $newPassword) {
+function updatePassword(string $newPassword, int $id) {
     global $handler;
+    $query = $handler->prepare('UPDATE `user` SET `password` = :password WHERE `id` = :id;');
+    return $query->execute([':password' => $newPassword]);
 }

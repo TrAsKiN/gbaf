@@ -62,7 +62,7 @@ switch (isset($_GET['action']) && $_GET['action']) {
             if ($user) {
                 if (isset($securedPost['new-password']) && isset($securedPost['new-password-confirm'])) {
                     if ($securedPost['new-password'] == $securedPost['new-password-confirm']) {
-                        updatePassword($securedPost['new-password']);
+                        updatePassword($securedPost['new-password'], $user['id']);
                         addFlash("Nouveau mot de passe enregistré !");
                         redirect('/user.php?action=login');
                     }
@@ -77,16 +77,40 @@ switch (isset($_GET['action']) && $_GET['action']) {
             $securedPost = array_map('htmlspecialchars', $_POST);
             if (password_verify($securedPost['password'], $user['password'])) {
                 if (!empty($securedPost['lastname']) && $securedPost['lastname'] != $user['lastname']) {
-                    updateLastname($securedPost['lastname']);
+                    try {
+                        updateLastname($securedPost['lastname'], $user['id']);
+                        addFlash("Nom modifié !");
+                    } catch (Exception $event) {
+                        var_dump($event);
+                    }
                 }
                 if (!empty($securedPost['firstname']) && $securedPost['firstname'] != $user['firstname']) {
-                    updateFirstname($securedPost['firstname']);
+                    try {
+                        updateFirstname($securedPost['firstname'], $user['id']);
+                        addFlash("Prénom modifié !");
+                    } catch (Exception $event) {
+                        var_dump($event);
+                    }
                 }
                 if (!empty($securedPost['question']) && $securedPost['question'] != $user['question']) {
-                    updateQuestion($securedPost['question']);
+                    if (updateQuestion($securedPost['question'], $user['id'])) {
+                        addFlash("Question modifiée !");
+                    }
                 }
                 if (!empty($securedPost['answer']) && $securedPost['answer'] != $user['answer']) {
-                    updateAnswer($securedPost['answer']);
+                    if (updateAnswer($securedPost['answer'], $user['id'])) {
+                        addFlash("Réponse modifiée !");
+                    }
+                }
+                if (!empty($securedPost['new-password']) && !empty($securedPost['new-password-confirm'])) {
+                    if (
+                        $securedPost['new-password'] == $securedPost['new-password-confirm']
+                        && !password_verify($securedPost['new-password'], $user['password'])
+                    ) {
+                        if (updatePassword(password_hash($securedPost['new-password'], PASSWORD_DEFAULT), $user['id'])) {
+                            addFlash("Mot de passe modifié !");
+                        }
+                    }
                 }
                 addFlash("Modifications effectuées !");
                 redirect('/user.php');
