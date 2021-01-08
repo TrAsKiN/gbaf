@@ -1,6 +1,9 @@
 <?php
 namespace GBAF;
 
+use PDO;
+use PDOException;
+
 class Database
 {
     protected $handler = null;
@@ -15,8 +18,8 @@ class Database
         }
 
         try {
-            $this->handler = new \PDO('mysql:host=localhost;dbname=' . $dbParams['name'] . ';charset=UTF8', $dbParams['user'], $dbParams['pass']);
-        } catch (\PDOException $e) {
+            $this->handler = new PDO('mysql:host=localhost;dbname=' . $dbParams['name'] . ';charset=UTF8', $dbParams['user'], $dbParams['pass']);
+        } catch (PDOException $e) {
             error_log('Unable to connect to the database (' . $e->getMessage() . ')');
         }
     }
@@ -77,23 +80,48 @@ class Database
         ]);
     }
 
-    public function updateLastname(string $newLastname)
+    public function updateLastname(string $newLastname, array $user)
     {
-
+        $query = $this->handler->prepare('UPDATE `user` SET `lastname` = :lastname WHERE `id` = :id;');
+        return $query->execute([
+            ':lastname' => $newLastname,
+            ':id' => $user['id']
+        ]);
     }
 
-    public function updateFirstname(string $newFirstname)
+    public function updateFirstname(string $newFirstname, array $user)
     {
-
+        $query = $this->handler->prepare('UPDATE `user` SET `firstname` = :firstname WHERE `id` = :id;');
+        return $query->execute([
+            ':firstname' => $newFirstname,
+            ':id' => $user['id']
+        ]);
     }
 
-    public function updateQuestion(string $newQuestion)
+    public function updateQuestion(string $newQuestion, array $user)
     {
-
+        $query = $this->handler->prepare('UPDATE `user` SET `question` = :question WHERE `id` = :id;');
+        return $query->execute([
+            ':question' => $newQuestion,
+            ':id' => $user['id']
+        ]);
     }
 
-    public function updateAnswer(string $newAnswer)
+    public function updateAnswer(string $newAnswer, array $user)
     {
+        $query = $this->handler->prepare('UPDATE `user` SET `answer` = :answer WHERE `id` = :id;');
+        return $query->execute([
+            ':answer' => $newAnswer,
+            ':id' => $user['id']
+        ]);
+    }
 
+    public function updatePassword(string $newPassword, array $user)
+    {
+        $query = $this->handler->prepare('UPDATE `user` SET `password` = :password WHERE `id` = :id;');
+        return $query->execute([
+            ':password' => $newPassword,
+            ':id' => $user['id']
+        ]);
     }
 }
