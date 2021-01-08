@@ -1,8 +1,6 @@
 <?php
 namespace GBAF;
 
-use GBAF\Database;
-
 class Template
 {
     public $title = 'Groupement Banque-Assurance Français';
@@ -29,7 +27,7 @@ class Template
             $userTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/user.html');
             $user = $db->getUserByUsername($_SESSION['username']);
             if (!$user) {
-                $this->addFlash("Erreur avec les informations utilisateur !");
+                App::addFlash("Erreur avec les informations utilisateur !");
                 App::redirect('/logout');
             }
             $userTemplate = preg_replace('/({LASTNAME})/', $user['lastname'], $userTemplate);
@@ -76,10 +74,5 @@ class Template
             ob_end_flush();
         }
         exit;
-    }
-
-    protected function addFlash(string $message): void
-    {
-        $_SESSION['flashMessages'][] = $message;
     }
 }

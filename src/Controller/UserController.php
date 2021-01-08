@@ -16,11 +16,11 @@ class UserController extends Controller
                 if (password_verify($securedPost['password'], $user['password'])) {
                     $_SESSION['username'] = $securedPost['username'];
                     $_SESSION['isConnected'] = true;
-                    $this->addFlash('Vous êtes connecté !');
+                    App::addFlash('Vous êtes connecté !');
                     App::redirect('/');
                 }
             }
-            $this->addFlash("Il y a une erreur avec votre identifiant ou votre mot de passe !");
+            App::addFlash("Il y a une erreur avec votre identifiant ou votre mot de passe !");
         }
         return (new UserTemplate())->render('login');
     }
@@ -41,13 +41,13 @@ class UserController extends Controller
                     ]);
                     $_SESSION['username'] = $securedPost['username'];
                     $_SESSION['isConnected'] = true;
-                    $this->addFlash("Inscription effectué !");
+                    App::addFlash("Inscription effectué !");
                     App::redirect('/profile');
                 } else {
-                    $this->addFlash("L'identifiant existe déjà !");
+                    App::addFlash("L'identifiant existe déjà !");
                 }
             } else {
-                $this->addFlash("Les mots de passe doivent être identique !");
+                App::addFlash("Les mots de passe doivent être identique !");
             }
         }
         return (new UserTemplate())->render('signup');
@@ -82,10 +82,10 @@ class UserController extends Controller
                         );
                     }
                 }
-                $this->addFlash("Modifications effectuées !");
+                App::addFlash("Modifications effectuées !");
                 App::redirect('/profile');
             } else {
-                $this->addFlash("Le mot de passe est incorrect !");
+                App::addFlash("Le mot de passe est incorrect !");
             }
         }
         return (new UserTemplate())->render('profile', $user);
@@ -100,7 +100,7 @@ class UserController extends Controller
                 if (isset($securedPost['answer']) && $user['answer'] == $securedPost['answer']) {
                     return (new UserTemplate())->render('password', $user);
                 } else if (isset($securedPost['answer'])) {
-                    $this->addFlash("La réponse n'est pas la bonne !");
+                    App::addFlash("La réponse n'est pas la bonne !");
                 }
                 if (isset($securedPost['new-password']) && isset($securedPost['new-password-confirm'])) {
                     if ($securedPost['new-password'] == $securedPost['new-password-confirm']) {
@@ -108,10 +108,10 @@ class UserController extends Controller
                             password_hash($securedPost['new-password'], PASSWORD_DEFAULT),
                             $user
                         );
-                        $this->addFlash("Nouveau mot de passe enregistré !");
+                        App::addFlash("Nouveau mot de passe enregistré !");
                         App::redirect('/login');
                     } else {
-                        $this->addFlash("Les mots de passe doivent être identique !");
+                        App::addFlash("Les mots de passe doivent être identique !");
                         App::redirect('/lost-password');
                     }
                 }
