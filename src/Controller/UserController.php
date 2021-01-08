@@ -60,16 +60,27 @@ class UserController extends Controller
             $securedPost = array_map('htmlspecialchars', $_POST);
             if (password_verify($securedPost['password'], $user['password'])) {
                 if (!empty($securedPost['lastname']) && $securedPost['lastname'] != $user['lastname']) {
-                    $this->db->updateLastname($securedPost['lastname']);
+                    $this->db->updateLastname($securedPost['lastname'], $user);
                 }
                 if (!empty($securedPost['firstname']) && $securedPost['firstname'] != $user['firstname']) {
-                    $this->db->updateFirstname($securedPost['firstname']);
+                    $this->db->updateFirstname($securedPost['firstname'], $user);
                 }
                 if (!empty($securedPost['question']) && $securedPost['question'] != $user['question']) {
-                    $this->db->updateQuestion($securedPost['question']);
+                    $this->db->updateQuestion($securedPost['question'], $user);
                 }
                 if (!empty($securedPost['answer']) && $securedPost['answer'] != $user['answer']) {
-                    $this->db->updateAnswer($securedPost['answer']);
+                    $this->db->updateAnswer($securedPost['answer'], $user);
+                }
+                if (!empty($securedPost['new-password']) && !empty($securedPost['new-password-confirm'])) {
+                    if (
+                        $securedPost['new-password'] == $securedPost['new-password-confirm']
+                        && !password_verify($securedPost['new-password'], $user['password'])
+                    ) {
+                        $this->db->updatePassword(
+                            password_hash($securedPost['new-password'], PASSWORD_DEFAULT),
+                            $user
+                        );
+                    }
                 }
                 $this->addFlash("Modifications effectuées !");
                 App::redirect('/profile');
@@ -88,11 +99,20 @@ class UserController extends Controller
             if ($user) {
                 if (isset($securedPost['answer']) && $user['answer'] == $securedPost['answer']) {
                     return (new UserTemplate())->render('password', $user);
+                } else if (isset($securedPost['answer'])) {
+                    $this->addFlash("La réponse n'est pas la bonne !");
                 }
                 if (isset($securedPost['new-password']) && isset($securedPost['new-password-confirm'])) {
                     if ($securedPost['new-password'] == $securedPost['new-password-confirm']) {
-                         $this->addFlash("Nouveau mot de passe enregistré !");
+                        $this->db->updatePassword(
+                            password_hash($securedPost['new-password'], PASSWORD_DEFAULT),
+                            $user
+                        );
+                        $this->addFlash("Nouveau mot de passe enregistré !");
                         App::redirect('/login');
+                    } else {
+                        $this->addFlash("Les mots de passe doivent être identique !");
+                        App::redirect('/lost-password');
                     }
                 }
                 return (new UserTemplate())->render('question', $user);
