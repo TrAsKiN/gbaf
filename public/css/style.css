@@ -61,8 +61,7 @@ figcaption{
     display: flex;
     background: whitesmoke;
     border-radius: 1rem;
-    padding: 1rem;
-    padding-bottom: 2.5rem;
+    padding: 1rem 1rem 2.5rem;
     margin: 1rem auto;
 }
 .partner:first-child, .partner:last-child{

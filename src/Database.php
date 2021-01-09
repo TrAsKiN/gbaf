@@ -42,7 +42,7 @@ class Database
 
     public function getPartner(int $id): array
     {
-        $query = $this->handler->prepare('SELECT * FROM `partner` WHERE `id` = :id;');
+        $query = $this->handler->prepare('SELECT * FROM `partner` WHERE `partner`.`id` = :id;');
         $query->execute([':id' => $id]);
         return $query->fetch();
     }
@@ -56,7 +56,11 @@ class Database
 
     public function getComments(int $partnerId): array
     {
-        $query = $this->handler->prepare('SELECT * FROM `comment` WHERE `id_partner` = :partnerId;');
+        $query = $this->handler->prepare(
+            'SELECT * FROM `comment`
+            LEFT JOIN `user` ON `comment`.`id_user` = `user`.`id`
+            WHERE `id_partner` = :partnerId;'
+        );
         $query->execute([':partnerId' => $partnerId]);
         return $query->fetchAll();
     }
@@ -72,7 +76,7 @@ class Database
     {
         $query = $this->handler->prepare(
             'INSERT INTO `user` (`lastname`, `firstname`, `username`, `password`, `question`, `answer`)
-                VALUES (:lastname, :firstname, :username, :passwd, :question, :answer);'
+            VALUES (:lastname, :firstname, :username, :passwd, :question, :answer);'
         );
         return $query->execute([
             ':lastname' => $newUser['lastname'],
@@ -84,7 +88,7 @@ class Database
         ]);
     }
 
-    public function updateLastname(string $newLastname, array $user)
+    public function updateLastname(string $newLastname, array $user): bool
     {
         $query = $this->handler->prepare('UPDATE `user` SET `lastname` = :lastname WHERE `id` = :id;');
         return $query->execute([
@@ -93,7 +97,7 @@ class Database
         ]);
     }
 
-    public function updateFirstname(string $newFirstname, array $user)
+    public function updateFirstname(string $newFirstname, array $user): bool
     {
         $query = $this->handler->prepare('UPDATE `user` SET `firstname` = :firstname WHERE `id` = :id;');
         return $query->execute([
@@ -102,7 +106,7 @@ class Database
         ]);
     }
 
-    public function updateQuestion(string $newQuestion, array $user)
+    public function updateQuestion(string $newQuestion, array $user): bool
     {
         $query = $this->handler->prepare('UPDATE `user` SET `question` = :question WHERE `id` = :id;');
         return $query->execute([
@@ -111,7 +115,7 @@ class Database
         ]);
     }
 
-    public function updateAnswer(string $newAnswer, array $user)
+    public function updateAnswer(string $newAnswer, array $user): bool
     {
         $query = $this->handler->prepare('UPDATE `user` SET `answer` = :answer WHERE `id` = :id;');
         return $query->execute([
@@ -120,7 +124,7 @@ class Database
         ]);
     }
 
-    public function updatePassword(string $newPassword, array $user)
+    public function updatePassword(string $newPassword, array $user): bool
     {
         $query = $this->handler->prepare('UPDATE `user` SET `password` = :password WHERE `id` = :id;');
         return $query->execute([
