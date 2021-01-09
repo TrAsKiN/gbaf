@@ -60,7 +60,7 @@ class App
             case '/lost-password':
                 $this->content = (new UserController())->lostPassword();
                 break;
-            case (preg_match('/partner-(\d+)/', $uri, $id) ? true : false):
+            case preg_match('/partner-(\d+)/', $uri, $id) ? true : false:
                 $this->content = (new PartnerController())->partner($id[1]);
                 break;
             default:

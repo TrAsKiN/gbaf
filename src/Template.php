@@ -46,7 +46,10 @@ class Template
         $this->before = ob_get_contents();
         ob_clean();
         if (!empty($this->before)) {
-            $this->output = preg_replace('/({DEBUG})/', '<pre class="debug">' . $this->before . '</pre>', $this->output);
+            $this->output = preg_replace(
+                '/({DEBUG})/',
+                '<pre class="debug">' . $this->before . '</pre>', $this->output
+            );
         }
 
         /**
