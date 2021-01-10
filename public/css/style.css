@@ -40,7 +40,7 @@ nav .profile{
 /**
  * Home
  */
- main{
+main{
     margin: 1rem;
 }
 
@@ -97,6 +97,74 @@ figcaption{
 }
 
 /**
+ * Comments
+ */
+#comments{
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid lightgray;
+}
+#actions{
+    display: flex;
+    justify-content: space-between;
+}
+#actions h3{
+    margin-bottom: initial;
+}
+#grades{
+    display: flex;
+}
+#grades > a{
+    display: inline-block;
+    padding: .2rem .4rem;
+    border-radius: .2rem;
+    color: dimgray;
+    background: lightgray;
+    align-self: center;
+}
+#grades > a:hover{
+    color: black;
+    background: darkgray;
+    text-decoration: none;
+}
+#grades div{
+    display: flex;
+    margin-left: 1rem;
+}
+#grades div a, #grades div p{
+    margin: auto .2rem;
+    padding: .2rem .4rem;
+    border-radius: .2rem;
+}
+#grades div a{
+    opacity: .7;
+}
+#grades div a:hover{
+    opacity: 1;
+    text-decoration: none;
+}
+
+.grade-selected{
+    border: 1px solid lightgray;
+}
+
+.comment{
+    background: whitesmoke;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin: 1rem auto;
+}
+.comment :last-child{
+    margin-bottom: initial;
+}
+.comment .firstname{
+    margin-bottom: initial;
+}
+.comment .date{
+    color: gray;
+}
+
+/**
  * Alert messages
  */
 .alert{
@@ -131,7 +199,6 @@ footer ul li a:hover{
     color: white;
 }
 
-/* To be deleted */
 .debug{
     /* display: none; */
     margin: 1rem;

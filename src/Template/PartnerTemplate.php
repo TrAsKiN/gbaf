@@ -4,12 +4,33 @@ namespace GBAF\Template;
 use DateTime;
 use DateTimeZone;
 use GBAF\App;
+use GBAF\Database;
 use GBAF\Template;
 
 class PartnerTemplate extends Template
 {
     public function render(?array $data): self
     {
+        $db = new Database();
+        $user = $db->getUserByUsername($_SESSION['username']);
+
+        $gradesUp = [];
+        $gradesDown = [];
+        $classGradeUp = '';
+        $classGradeDown = '';
+        foreach ($data['grades'] as $grade) {
+            if ($grade['grade']) {
+                $gradesUp[] = $grade;
+                if ($grade['id_user'] == $user['id']) {
+                    $classGradeUp = ' class="grade-selected"';
+                }
+            } else {
+                $gradesDown[] = $grade;
+                if ($grade['id_user'] == $user['id']) {
+                    $classGradeDown = ' class="grade-selected"';
+                }
+            }
+        }
         $body = file_get_contents(App::TEMPLATES_DIRECTORY . '/partner/partner.html');
 
         $body = preg_replace('/({NAME})/', $data['partner']['name'], $body);
@@ -30,7 +51,10 @@ class PartnerTemplate extends Template
         }
         $body = preg_replace('/({DESCRIPTION})/', nl2br($data['partner']['description']), $body);
         $body = preg_replace('/({COMMENTS_NUM})/', count($data['comments']), $body);
-        $body = preg_replace('/({GRADES_NUM})/', count($data['grades']), $body);
+        $body = preg_replace('/({GRADES_NUM_UP})/', count($gradesUp), $body);
+        $body = preg_replace('/({GRADES_NUM_DOWN})/', count($gradesDown), $body);
+        $body = preg_replace('/({CLASS_GRADE_UP})/', $classGradeUp, $body);
+        $body = preg_replace('/({CLASS_GRADE_DOWN})/', $classGradeDown, $body);
         $body = preg_replace('/({COMMENTS})/', $comments, $body);
 
         $this->output = preg_replace('/({BODY})/', $body, $this->output);
