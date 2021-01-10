@@ -7,17 +7,16 @@
     {WEBSITE}
     <p>{DESCRIPTION}</p>
 </section>
-<aside>
-    <h3>{COMMENTS_NUM} commentaire(s)</h3>
-    <div>
-        <a href="#nogo">Nouveau commentaire</a>
-        <div>
-            {GRADES_NUM}
-            <a href="#nogo">👍</a>
-            <a href="#nogo">👎</a>
+<section id="comments">
+    <aside id="actions">
+        <h3>{COMMENTS_NUM} commentaire(s)</h3>
+        <div id="grades">
+            <a href="#nogo">Nouveau commentaire</a>
+            <div>
+                <a href="#nogo"{CLASS_GRADE_UP}>{GRADES_NUM_UP} 👍</a>
+                <a href="#nogo"{CLASS_GRADE_DOWN}>{GRADES_NUM_DOWN} 👎</a>
+            </div>
         </div>
-    </div>
-</aside>
-<section>
+    </aside>
     {COMMENTS}
 </section>
