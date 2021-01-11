@@ -1,19 +1,13 @@
 <?php
 namespace GBAF\Template;
 
-use DateTime;
-use DateTimeZone;
 use GBAF\App;
-use GBAF\Database;
 use GBAF\Template;
 
 class PartnerTemplate extends Template
 {
     public function render(?array $data): self
     {
-        $db = new Database();
-        $user = $db->getUserByUsername($_SESSION['username']);
-
         $gradesUp = [];
         $gradesDown = [];
         $classGradeUp = '';
@@ -21,12 +15,12 @@ class PartnerTemplate extends Template
         foreach ($data['grades'] as $grade) {
             if ($grade['grade']) {
                 $gradesUp[] = $grade;
-                if ($grade['id_user'] == $user['id']) {
+                if ($grade['id_user'] == $data['user']['id']) {
                     $classGradeUp = ' class="grade-selected"';
                 }
             } else {
                 $gradesDown[] = $grade;
-                if ($grade['id_user'] == $user['id']) {
+                if ($grade['id_user'] == $data['user']['id']) {
                     $classGradeDown = ' class="grade-selected"';
                 }
             }
@@ -42,7 +36,7 @@ class PartnerTemplate extends Template
         }
         $comments = '';
         foreach ($data['comments'] as $comment) {
-            $date = new DateTime($comment['date_add'], new DateTimeZone('Europe/Paris'));
+            $date = date_create($comment['date_add']);
             $commentTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/partner/comment.html');
             $commentTemplate = preg_replace('/({FIRSTNAME})/', $comment['firstname'], $commentTemplate);
             $commentTemplate = preg_replace('/({DATE})/', $date->format('d/m/Y'), $commentTemplate);
@@ -55,6 +49,8 @@ class PartnerTemplate extends Template
         $body = preg_replace('/({GRADES_NUM_DOWN})/', count($gradesDown), $body);
         $body = preg_replace('/({CLASS_GRADE_UP})/', $classGradeUp, $body);
         $body = preg_replace('/({CLASS_GRADE_DOWN})/', $classGradeDown, $body);
+        $body = preg_replace('/({URL_GRADE_UP})/', $data['partner']['id'] . '?grade=1', $body);
+        $body = preg_replace('/({URL_GRADE_DOWN})/', $data['partner']['id'] . '?grade=0', $body);
         $body = preg_replace('/({COMMENTS})/', $comments, $body);
 
         $this->output = preg_replace('/({BODY})/', $body, $this->output);
