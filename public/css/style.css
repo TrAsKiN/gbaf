@@ -138,6 +138,7 @@ figcaption{
 }
 #grades div a{
     opacity: .7;
+    border: 1px solid transparent;
 }
 #grades div a:hover{
     opacity: 1;
@@ -145,7 +146,7 @@ figcaption{
 }
 
 .grade-selected{
-    border: 1px solid lightgray;
+    border-color: lightgray !important;
 }
 
 .comment{

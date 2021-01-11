@@ -72,6 +72,18 @@ class Database
         return $query->fetch();
     }
 
+    public function getGradeByUser(array $partner, array $user)
+    {
+        $query = $this->handler->prepare(
+            'SELECT * FROM `grade` WHERE `id_partner` = :partner AND `id_user` = :user;'
+        );
+        $query->execute([
+            ':partner' => $partner['id'],
+            ':user' => $user['id']
+        ]);
+        return $query->fetch();
+    }
+
     public function addUser(array $newUser): bool
     {
         $query = $this->handler->prepare(
@@ -85,6 +97,19 @@ class Database
             ':passwd' => $newUser['password'],
             ':question' => $newUser['question'],
             ':answer' => $newUser['answer']
+        ]);
+    }
+
+    public function addGrade(int $grade, array $partner, array $user): bool
+    {
+        $query = $this->handler->prepare(
+            'INSERT INTO `grade` (id_user, id_partner, grade)
+            VALUES (:user, :partner, :grade);'
+        );
+        return $query->execute([
+            ':user' => $user['id'],
+            ':partner' => $partner['id'],
+            ':grade' => $grade
         ]);
     }
 
@@ -129,6 +154,15 @@ class Database
         $query = $this->handler->prepare('UPDATE `user` SET `password` = :password WHERE `id` = :id;');
         return $query->execute([
             ':password' => $newPassword,
+            ':id' => $user['id']
+        ]);
+    }
+
+    public function updateGrade(int $grade, array $user): bool
+    {
+        $query = $this->handler->prepare('UPDATE `grade` SET `grade` = :grade WHERE `id_user` = :id;');
+        return $query->execute([
+            ':grade' => $grade,
             ':id' => $user['id']
         ]);
     }
