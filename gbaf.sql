@@ -30,7 +30,7 @@ CREATE TABLE `comment` (
   `id` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `id_partner` int(11) NOT NULL,
-  `date_add` date NOT NULL DEFAULT current_timestamp(),
+  `date_add` datetime NOT NULL DEFAULT current_timestamp(),
   `comment` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

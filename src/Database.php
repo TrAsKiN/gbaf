@@ -113,6 +113,19 @@ class Database
         ]);
     }
 
+    public function addComment(string $comment, array $partner, array $user): bool
+    {
+        $query = $this->handler->prepare(
+            'INSERT INTO `comment` (`id_user`, `id_partner`, `comment`)
+            VALUES (:user, :partner, :comment);'
+        );
+        return $query->execute([
+            ':user' => $user['id'],
+            ':partner' => $partner['id'],
+            ':comment' => $comment
+        ]);
+    }
+
     public function updateLastname(string $newLastname, array $user): bool
     {
         $query = $this->handler->prepare('UPDATE `user` SET `lastname` = :lastname WHERE `id` = :id;');
