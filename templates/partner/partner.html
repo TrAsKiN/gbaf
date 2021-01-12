@@ -11,12 +11,16 @@
     <aside id="actions">
         <h3>{COMMENTS_NUM} commentaire(s)</h3>
         <div id="grades">
-            <a href="#nogo">Nouveau commentaire</a>
+            <a href="#nogo" id="toggle-new-comment">Nouveau commentaire</a>
             <div>
                 <a href="/partner-{URL_GRADE_UP}"{CLASS_GRADE_UP}>{GRADES_NUM_UP} 👍</a>
                 <a href="/partner-{URL_GRADE_DOWN}"{CLASS_GRADE_DOWN}>{GRADES_NUM_DOWN} 👎</a>
             </div>
         </div>
     </aside>
+    <form action="{URL_PARTNER}" method="post" id="form-comment">
+        <textarea name="text-comment" id="text-comment"></textarea>
+        <input type="submit" value="Envoyer">
+    </form>
     {COMMENTS}
 </section>

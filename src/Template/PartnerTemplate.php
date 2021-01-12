@@ -51,6 +51,7 @@ class PartnerTemplate extends Template
         $body = preg_replace('/({CLASS_GRADE_DOWN})/', $classGradeDown, $body);
         $body = preg_replace('/({URL_GRADE_UP})/', $data['partner']['id'] . '?grade=1', $body);
         $body = preg_replace('/({URL_GRADE_DOWN})/', $data['partner']['id'] . '?grade=0', $body);
+        $body = preg_replace('/({URL_PARTNER})/', '/partner-' . $data['partner']['id'], $body);
         $body = preg_replace('/({COMMENTS})/', $comments, $body);
 
         $this->output = preg_replace('/({BODY})/', $body, $this->output);
