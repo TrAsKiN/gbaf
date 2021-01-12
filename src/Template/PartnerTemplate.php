@@ -25,6 +25,7 @@ class PartnerTemplate extends Template
                 }
             }
         }
+
         $body = file_get_contents(App::TEMPLATES_DIRECTORY . '/partner/partner.html');
 
         $body = preg_replace('/({NAME})/', $data['partner']['name'], $body);
@@ -40,7 +41,7 @@ class PartnerTemplate extends Template
             $commentTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/partner/comment.html');
             $commentTemplate = preg_replace('/({FIRSTNAME})/', $comment['firstname'], $commentTemplate);
             $commentTemplate = preg_replace('/({DATE})/', $date->format('d/m/Y'), $commentTemplate);
-            $commentTemplate = preg_replace('/({COMMENT})/', $comment['comment'], $commentTemplate);
+            $commentTemplate = preg_replace('/({COMMENT})/', nl2br($comment['comment']), $commentTemplate);
             $comments .= $commentTemplate;
         }
         $body = preg_replace('/({DESCRIPTION})/', nl2br($data['partner']['description']), $body);

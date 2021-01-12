@@ -60,8 +60,6 @@ class Template
             while($message = array_shift($_SESSION['flashMessages'])) {
                 $flashOutput = file_get_contents(App::TEMPLATES_DIRECTORY . '/flash.html');
                 $flashMessages .= preg_replace('/({MESSAGE})/', $message, $flashOutput);
-
-                
             }
             $this->output = preg_replace('/({FLASH})/', $flashMessages, $this->output);
         }
