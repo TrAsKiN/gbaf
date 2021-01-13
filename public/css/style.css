@@ -179,6 +179,33 @@ figcaption{
 }
 
 /**
+ * User pages
+ */
+#user{
+    max-width: 600px;
+    margin: auto;
+}
+#user fieldset{
+    border: 1px solid lightgray;
+    padding: .5rem 0;
+    margin: 1rem auto;
+}
+#user fieldset div{
+    margin: auto .5rem;
+}
+#user fieldset.inline{
+    display: flex;
+    justify-content: space-between;
+}
+#user fieldset.inline div{
+    width: 100%;
+    margin: auto .5rem;
+}
+#user input[type=text], #user input[type=password]{
+    width: 100%;
+}
+
+/**
  * Alert messages
  */
 .alert{
@@ -238,12 +265,8 @@ footer ul li a:hover{
         justify-content: space-between;
     }
 }
-@media only screen and (min-width: 600px){ /* Tablets */
-
-}
-@media only screen and (min-width: 768px){ /* Desktops */
-
-}
+@media only screen and (min-width: 600px){ /* Tablets */ }
+@media only screen and (min-width: 768px){ /* Desktops */ }
 
 .debug{
     /*display: none;*/
