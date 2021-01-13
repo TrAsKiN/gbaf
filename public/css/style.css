@@ -213,8 +213,40 @@ footer ul li a:hover{
     color: white;
 }
 
+/**
+ * Responsive breakpoints
+ */
+@media only screen and (max-width: 600px){ /* Smartphones */
+    nav{
+        display: block;
+        max-height: initial;
+        text-align: center;
+    }
+    nav .profile{
+        margin-top: .5rem;
+        text-align: center;
+    }
+    .partner{
+        display: block;
+    }
+    #actions{
+        display: block;
+        text-align: center;
+    }
+    #grades{
+        margin-top: .5rem;
+        justify-content: space-between;
+    }
+}
+@media only screen and (min-width: 600px){ /* Tablets */
+
+}
+@media only screen and (min-width: 768px){ /* Desktops */
+
+}
+
 .debug{
-    /* display: none; */
+    /*display: none;*/
     margin: 1rem;
     padding: 1rem;
     color: gray;
