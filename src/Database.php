@@ -33,28 +33,28 @@ class Database
         $this->handler = null;
     }
 
-    public function getPartners(): array
+    public function getPartners()
     {
         $query = $this->handler->prepare('SELECT * FROM `partner`;');
         $query->execute();
         return $query->fetchAll();
     }
 
-    public function getPartner(int $id): array
+    public function getPartner(int $id)
     {
         $query = $this->handler->prepare('SELECT * FROM `partner` WHERE `partner`.`id` = :id;');
         $query->execute([':id' => $id]);
         return $query->fetch();
     }
 
-    public function getGrades(int $partnerId): array
+    public function getGrades(int $partnerId)
     {
         $query = $this->handler->prepare('SELECT * FROM `grade` WHERE `id_partner` = :partnerId;');
         $query->execute([':partnerId' => $partnerId]);
         return $query->fetchAll();
     }
 
-    public function getComments(int $partnerId): array
+    public function getComments(int $partnerId)
     {
         $query = $this->handler->prepare(
             'SELECT * FROM `comment`
