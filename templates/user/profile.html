@@ -1,30 +1,36 @@
 <form action="/profile" method="post">
+    <fieldset class="inline">
+        <div>
+            <label for="lastname">Nom</label>
+            <input type="text" name="lastname" id="lastname" value="{LASTNAME}">
+        </div>
+        <div>
+            <label for="firstname">Prénom</label>
+            <input type="text" name="firstname" id="firstname" value="{FIRSTNAME}">
+        </div>
+    </fieldset>
+    <fieldset>
+        <div>
+            <label for="new-password">Nouveau mot de passe</label>
+            <input type="password" name="new-password" id="new-password">
+        </div>
+        <div>
+            <label for="new-password-confirm">Confirmer le nouveau mot de passe</label>
+            <input type="password" name="new-password-confirm" id="new-password-confirm">
+        </div>
+    </fieldset>
+    <fieldset>
+        <div>
+            <label for="question">Question secrète</label>
+            <input type="text" name="question" id="question" value="{QUESTION}">
+        </div>
+        <div>
+            <label for="answer">Réponse</label>
+            <input type="text" name="answer" id="answer" value="{ANSWER}">
+        </div>
+    </fieldset>
     <div>
-        <label for="lastname">Nom</label>
-        <input type="text" name="lastname" id="lastname" value="{LASTNAME}">
-    </div>
-    <div>
-        <label for="firstname">Prénom</label>
-        <input type="text" name="firstname" id="firstname" value="{FIRSTNAME}">
-    </div>
-    <div>
-        <label for="new-password">Nouveau mot de passe</label>
-        <input type="password" name="new-password" id="new-password">
-    </div>
-    <div>
-        <label for="new-password-confirm">Confirmer le nouveau mot de passe</label>
-        <input type="password" name="new-password-confirm" id="new-password-confirm">
-    </div>
-    <div>
-        <label for="question">Question secrète</label>
-        <input type="text" name="question" id="question" value="{QUESTION}">
-    </div>
-    <div>
-        <label for="answer">Réponse</label>
-        <input type="text" name="answer" id="answer" value="{ANSWER}">
-    </div>
-    <div>
-        <label for="password">Mot de passe</label>
+        <label for="password"><strong>Mot de passe</strong> <small>(<em>Obligatoire</em>)</small></label>
         <input type="password" name="password" id="password" required>
     </div>
     <div>
