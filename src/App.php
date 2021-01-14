@@ -66,11 +66,12 @@ class App
             case '/contact':
                 $this->content = (new HomeController())->contact();
                 break;
-            case preg_match('/partner-(\d+)/', $uri, $id) ? true : false:
-                $this->content = (new PartnerController())->partner($id[1]);
-                break;
             default:
-                $this->notFound();
+                if (preg_match('/partner-(\d+)/', $uri, $id)) {
+                    $this->content = (new PartnerController())->partner($id[1]);
+                } else {
+                    $this->notFound();
+                }
                 break;
         }
 
