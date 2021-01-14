@@ -26,7 +26,7 @@ class App
          */
         if (
             !isset($_SESSION['isConnected'])
-            && !preg_match('/(login|signup|lost-password)/', $uri)
+            && !preg_match('/(login|signup|lost-password|mentions-legales|contact)/', $uri)
         ) {
             $this->redirect('/login');
         }
