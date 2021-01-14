@@ -38,4 +38,21 @@ class HomeTemplate extends Template
 
         return $this;
     }
+
+    public function renderHtml(string $page): self
+    {
+        $body = '';
+        switch ($page) {
+            case 'legals':
+                $body = file_get_contents(App::TEMPLATES_DIRECTORY . '/legals.html');
+                break;
+            case 'contact':
+                $body = file_get_contents(App::TEMPLATES_DIRECTORY . '/contact.html');
+                break;
+        }
+
+        $this->output = preg_replace('/({BODY})/', $body, $this->output);
+
+        return $this;
+    }
 }
