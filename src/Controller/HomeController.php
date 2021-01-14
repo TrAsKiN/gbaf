@@ -12,4 +12,14 @@ class HomeController extends Controller
         $partners = $this->db->getPartners();
         return (new HomeTemplate())->render($partners);
     }
+
+    public function legals(): Template
+    {
+        return (new HomeTemplate())->renderHtml('legals');
+    }
+
+    public function contact(): Template
+    {
+        return (new HomeTemplate())->renderHtml('contact');
+    }
 }
