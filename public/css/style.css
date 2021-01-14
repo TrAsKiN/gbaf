@@ -193,6 +193,9 @@ figcaption{
 #user fieldset div{
     margin: auto .5rem;
 }
+#user fieldset div:not(:first-child){
+    margin-top: .5rem;
+}
 #user fieldset.inline{
     display: flex;
     justify-content: space-between;
@@ -263,6 +266,15 @@ footer ul li a:hover{
     #grades{
         margin-top: .5rem;
         justify-content: space-between;
+    }
+    #user fieldset.inline{
+        display: block;
+    }
+    #user fieldset.inline div{
+        width: initial;
+    }
+    #user fieldset.inline div:not(:first-child){
+        margin-top: .5rem;
     }
 }
 @media only screen and (min-width: 600px){ /* Tablets */ }
