@@ -29,7 +29,7 @@ class PartnerController extends Controller
         $securedPost = array_map('htmlspecialchars', $_POST);
         if (isset($securedPost['text-comment'])) {
             $this->db->addComment($securedPost['text-comment'], $partner, $user);
-            App::addFlash("Commentaire enregistré !");
+            App::addFlash("Commentaire enregistré !");
             App::redirect('/partner-' . $partner['id']);
         }
         return (new PartnerTemplate())->render([

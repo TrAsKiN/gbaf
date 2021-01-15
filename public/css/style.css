@@ -277,8 +277,12 @@ footer ul li a:hover{
         margin-top: .5rem;
     }
 }
-@media only screen and (min-width: 600px){ /* Tablets */ }
-@media only screen and (min-width: 768px){ /* Desktops */ }
+@media only screen and (min-width: 80rem){
+    main{
+        margin: 1rem auto;
+        max-width: 80rem;
+    }
+}
 
 .debug{
     /*display: none;*/

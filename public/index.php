@@ -1,5 +1,8 @@
 <?php
+
+use GBAF\App;
+
 require dirname(__DIR__) . '/autoload.php';
 
-$app = new \GBAF\App();
+$app = new App();
 $app->run();
