@@ -116,6 +116,8 @@ class UserController extends Controller
                     }
                 }
                 return (new UserTemplate())->render('question', $user);
+            } else {
+                App::addFlash("Cet identifiant n'existe pas !");
             }
         }
         return (new UserTemplate())->render('check');
@@ -126,5 +128,6 @@ class UserController extends Controller
         unset($_SESSION['isConnected']);
         unset($_SESSION['username']);
         App::redirect('/login');
+        App::addFlash("Vous avez été déconnecté !");
     }
 }
