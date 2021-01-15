@@ -37,14 +37,18 @@ class UserTemplate extends Template
                 break;
             case 'question':
                 $body = preg_replace('/({TITLE})/', 'Mot de passe perdu', $body);
-                $questionTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/user/lost-password/question.html');
+                $questionTemplate = file_get_contents(
+                    App::TEMPLATES_DIRECTORY . '/user/lost-password/question.html'
+                );
                 $questionTemplate = preg_replace('/({USERNAME})/', $data['username'], $questionTemplate);
                 $questionTemplate = preg_replace('/({QUESTION})/', $data['question'], $questionTemplate);
                 $body = preg_replace('/({CONTENT})/', $questionTemplate, $body);
                 break;
             case 'password':
                 $body = preg_replace('/({TITLE})/', 'Mot de passe perdu', $body);
-                $passwordTemplate = file_get_contents(App::TEMPLATES_DIRECTORY . '/user/lost-password/password.html');
+                $passwordTemplate = file_get_contents(
+                    App::TEMPLATES_DIRECTORY . '/user/lost-password/password.html'
+                );
                 $passwordTemplate = preg_replace('/({USERNAME})/', $data['username'], $passwordTemplate);
                 $body = preg_replace('/({CONTENT})/', $passwordTemplate, $body);
                 break;

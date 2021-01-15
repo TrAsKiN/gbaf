@@ -23,7 +23,11 @@ class HomeTemplate extends Template
                 $websiteTemplate = preg_replace('/({URL})/', $partner['website'], $websiteTemplate);
                 $partnerOutput = preg_replace('/({WEBSITE})/', $websiteTemplate, $partnerOutput);
             }
-            $partnerOutput = preg_replace('/({DESCRIPTION})/', nl2br($partner['description']), $partnerOutput);
+            $partnerOutput = preg_replace(
+                '/({DESCRIPTION})/',
+                nl2br(strtok($partner['description'], PHP_EOL)),
+                $partnerOutput
+            );
             $partnerOutput = preg_replace('/({LINK})/', '/partner-' . $partner['id'], $partnerOutput);
             $partners .= $partnerOutput;
         }
@@ -31,7 +35,11 @@ class HomeTemplate extends Template
         if (!empty($partners)) {
             $body = preg_replace('/({PARTNERS})/', $partners, $body);
         } else {
-            $body = preg_replace('/({PARTNERS})/', '<p>Aucun acteur/partenaire à afficher.</p>', $body);
+            $body = preg_replace(
+                '/({PARTNERS})/',
+                '<p>Aucun acteur/partenaire à afficher.</p>',
+                $body
+            );
         }
 
         $this->output = preg_replace('/({BODY})/', $body, $this->output);
