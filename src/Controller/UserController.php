@@ -41,13 +41,13 @@ class UserController extends Controller
                     ]);
                     $_SESSION['username'] = $securedPost['username'];
                     $_SESSION['isConnected'] = true;
-                    App::addFlash("Inscription effectué !");
+                    App::addFlash("Inscription effectuée !");
                     App::redirect('/profile');
                 } else {
                     App::addFlash("L'identifiant existe déjà !");
                 }
             } else {
-                App::addFlash("Les mots de passe doivent être identique !");
+                App::addFlash("Les mots de passe doivent être identiques !");
             }
         }
         return (new UserTemplate())->render('signup');
@@ -111,7 +111,7 @@ class UserController extends Controller
                         App::addFlash("Nouveau mot de passe enregistré !");
                         App::redirect('/login');
                     } else {
-                        App::addFlash("Les mots de passe doivent être identique !");
+                        App::addFlash("Les mots de passe doivent être identiques !");
                         App::redirect('/lost-password');
                     }
                 }
