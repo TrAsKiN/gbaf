@@ -85,13 +85,11 @@ class App
     {
         header('Location: ' . $url);
         header('HTTP/1.1 301 Moved Permanently');
-        exit;
     }
 
     public static function notFound(): void
     {
         header('HTTP/1.1 404 Not Found');
-        exit;
     }
 
     public static function addFlash(string $message): void

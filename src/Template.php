@@ -69,11 +69,10 @@ class Template
          */
         $this->output = preg_replace('/({\w*})/', '', $this->output);
 
-        print_r($this->output);
+        echo $this->output;
         
         if (ob_get_length()) {
             ob_end_flush();
         }
-        exit;
     }
 }
