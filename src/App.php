@@ -24,8 +24,7 @@ class App
         /**
          * If not connected redirect to the login page
          */
-        if (
-            !isset($_SESSION['isConnected'])
+        if (!isset($_SESSION['isConnected'])
             && !preg_match('/(login|signup|lost-password|mentions-legales|contact)/', $uri)
         ) {
             $this->redirect('/login');
@@ -81,15 +80,17 @@ class App
         $this->content->send();
     }
 
-    public static function redirect(string $url): void
+    public static function redirect(string $url)
     {
         header('Location: ' . $url);
         header('HTTP/1.1 301 Moved Permanently');
+        return null;
     }
 
-    public static function notFound(): void
+    public static function notFound()
     {
         header('HTTP/1.1 404 Not Found');
+        return null;
     }
 
     public static function addFlash(string $message): void

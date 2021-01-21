@@ -48,7 +48,8 @@ class Template
         if (!empty($this->before)) {
             $this->output = preg_replace(
                 '/({DEBUG})/',
-                '<pre class="debug">' . $this->before . '</pre>', $this->output
+                '<pre class="debug">' . $this->before . '</pre>',
+                $this->output
             );
         }
 
@@ -57,7 +58,7 @@ class Template
          */
         if (isset($_SESSION['flashMessages']) && !empty($_SESSION['flashMessages'])) {
             $flashMessages = '';
-            while($message = array_shift($_SESSION['flashMessages'])) {
+            while ($message = array_shift($_SESSION['flashMessages'])) {
                 $flashOutput = file_get_contents(App::TEMPLATES_DIRECTORY . '/flash.html');
                 $flashMessages .= preg_replace('/({MESSAGE})/', $message, $flashOutput);
             }

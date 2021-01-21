@@ -8,7 +8,7 @@ use GBAF\Template\UserTemplate;
 
 class UserController extends Controller
 {
-    public function login(): Template
+    public function login(): ?Template
     {
         if (!empty($_POST)) {
             $securedPost = array_map('htmlspecialchars', $_POST);
@@ -17,7 +17,7 @@ class UserController extends Controller
                     $_SESSION['username'] = $securedPost['username'];
                     $_SESSION['isConnected'] = true;
                     App::addFlash('Vous êtes connecté !');
-                    App::redirect('/');
+                    return App::redirect('/');
                 }
             }
             App::addFlash("Il y a une erreur avec votre identifiant ou votre mot de passe !");
@@ -25,7 +25,7 @@ class UserController extends Controller
         return (new UserTemplate())->render('login');
     }
 
-    public function signup(): Template
+    public function signup(): ?Template
     {
         if (!empty($_POST)) {
             $securedPost = array_map('htmlspecialchars', $_POST);
@@ -42,7 +42,7 @@ class UserController extends Controller
                     $_SESSION['username'] = $securedPost['username'];
                     $_SESSION['isConnected'] = true;
                     App::addFlash("Inscription effectuée !");
-                    App::redirect('/profile');
+                    return App::redirect('/login');
                 } else {
                     App::addFlash("L'identifiant existe déjà !");
                 }
@@ -53,7 +53,7 @@ class UserController extends Controller
         return (new UserTemplate())->render('signup');
     }
 
-    public function profile(): Template
+    public function profile(): ?Template
     {
         $user = $this->db->getUserByUsername($_SESSION['username']);
         if (!empty($_POST)) {
@@ -72,8 +72,7 @@ class UserController extends Controller
                     $this->db->updateAnswer($securedPost['answer'], $user);
                 }
                 if (!empty($securedPost['new-password']) && !empty($securedPost['new-password-confirm'])) {
-                    if (
-                        $securedPost['new-password'] == $securedPost['new-password-confirm']
+                    if ($securedPost['new-password'] == $securedPost['new-password-confirm']
                         && !password_verify($securedPost['new-password'], $user['password'])
                     ) {
                         $this->db->updatePassword(
@@ -83,7 +82,7 @@ class UserController extends Controller
                     }
                 }
                 App::addFlash("Modifications effectuées !");
-                App::redirect('/profile');
+                return App::redirect('/profile');
             } else {
                 App::addFlash("Le mot de passe est incorrect !");
             }
@@ -91,7 +90,7 @@ class UserController extends Controller
         return (new UserTemplate())->render('profile', $user);
     }
 
-    public function lostPassword(): Template
+    public function lostPassword(): ?Template
     {
         if (!empty($_POST)) {
             $securedPost = array_map('htmlspecialchars', $_POST);
@@ -99,7 +98,7 @@ class UserController extends Controller
             if ($user) {
                 if (isset($securedPost['answer']) && $user['answer'] == $securedPost['answer']) {
                     return (new UserTemplate())->render('password', $user);
-                } else if (isset($securedPost['answer'])) {
+                } elseif (isset($securedPost['answer'])) {
                     App::addFlash("La réponse n'est pas la bonne !");
                 }
                 if (isset($securedPost['new-password']) && isset($securedPost['new-password-confirm'])) {
@@ -109,10 +108,10 @@ class UserController extends Controller
                             $user
                         );
                         App::addFlash("Nouveau mot de passe enregistré !");
-                        App::redirect('/login');
+                        return App::redirect('/login');
                     } else {
                         App::addFlash("Les mots de passe doivent être identiques !");
-                        App::redirect('/lost-password');
+                        return App::redirect('/lost-password');
                     }
                 }
                 return (new UserTemplate())->render('question', $user);
@@ -123,11 +122,11 @@ class UserController extends Controller
         return (new UserTemplate())->render('check');
     }
 
-    public function logout(): void
+    public function logout()
     {
         unset($_SESSION['isConnected']);
         unset($_SESSION['username']);
-        App::redirect('/login');
         App::addFlash("Vous avez été déconnecté !");
+        return App::redirect('/login');
     }
 }

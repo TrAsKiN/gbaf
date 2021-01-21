@@ -8,12 +8,12 @@ use GBAF\Template\PartnerTemplate;
 
 class PartnerController extends Controller
 {
-    public function partner(int $id): Template
+    public function partner(int $id): ?Template
     {
         $user = $this->db->getUserByUsername($_SESSION['username']);
         $partner = $this->db->getPartner($id);
         if (!$partner) {
-            App::notFound();
+            return App::notFound();
         }
         $grades = $this->db->getGrades($id);
         $comments = $this->db->getComments($id);
@@ -24,13 +24,13 @@ class PartnerController extends Controller
             } else {
                 $this->db->addGrade($securedGet['grade'], $partner, $user);
             }
-            App::redirect('/partner-' . $partner['id']);
+            return App::redirect('/partner-' . $partner['id']);
         }
         $securedPost = array_map('htmlspecialchars', $_POST);
-        if (isset($securedPost['text-comment'])) {
+        if (isset($securedPost['text-comment']) && !empty($securedPost['text-comment'])) {
             $this->db->addComment($securedPost['text-comment'], $partner, $user);
             App::addFlash("Commentaire enregistré !");
-            App::redirect('/partner-' . $partner['id']);
+            return App::redirect('/partner-' . $partner['id']);
         }
         return (new PartnerTemplate())->render([
             'partner' => $partner,

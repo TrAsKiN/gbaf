@@ -1,7 +1,6 @@
 <?php
 /**
  * PSR-4: Autoloader implementation
- * 
  * @param string $class
  * @return void
  */

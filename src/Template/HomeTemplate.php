@@ -14,7 +14,7 @@ class HomeTemplate extends Template
         $body = preg_replace('/({TITLE})/', $this->title, $body);
 
         $partners = '';
-        foreach($data as $partner) {
+        foreach ($data as $partner) {
             $partnerOutput = $partnerTemplate;
             $partnerOutput = preg_replace('/({NAME})/', $partner['name'], $partnerOutput);
             $partnerOutput = preg_replace('/({LOGO})/', 'images/' . $partner['logo'], $partnerOutput);

@@ -18,11 +18,13 @@ class Database
         }
 
         try {
-            $this->handler = new PDO(
-                'mysql:host=localhost;dbname=' . $dbParams['name'] . ';charset=UTF8',
-                $dbParams['user'],
-                $dbParams['pass']
-            );
+            if (isset($dbParams)) {
+                $this->handler = new PDO(
+                    'mysql:host=localhost;dbname=' . $dbParams['name'] . ';charset=UTF8',
+                    $dbParams['user'],
+                    $dbParams['pass']
+                );
+            }
         } catch (PDOException $e) {
             error_log('Unable to connect to the database (' . $e->getMessage() . ')');
         }
@@ -33,7 +35,7 @@ class Database
         $this->handler = null;
     }
 
-    public function getPartners()
+    public function getPartners(): array
     {
         $query = $this->handler->prepare('SELECT * FROM `partner`;');
         $query->execute();
@@ -47,14 +49,14 @@ class Database
         return $query->fetch();
     }
 
-    public function getGrades(int $partnerId)
+    public function getGrades(int $partnerId): array
     {
         $query = $this->handler->prepare('SELECT * FROM `grade` WHERE `id_partner` = :partnerId;');
         $query->execute([':partnerId' => $partnerId]);
         return $query->fetchAll();
     }
 
-    public function getComments(int $partnerId)
+    public function getComments(int $partnerId): array
     {
         $query = $this->handler->prepare(
             'SELECT * FROM `comment`

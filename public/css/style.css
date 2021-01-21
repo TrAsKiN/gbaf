@@ -282,6 +282,13 @@ footer ul li a:hover{
         margin: 1rem auto;
         max-width: 80rem;
     }
+    .alert{
+        margin: 1rem auto;
+        padding: 1rem;
+        background: lightblue;
+        border-radius: 1rem;
+        max-width: 80rem;
+    }
 }
 
 .debug{
