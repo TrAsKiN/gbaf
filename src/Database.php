@@ -86,6 +86,18 @@ class Database
         return $query->fetch();
     }
 
+    public function getCommentByUser(array $partner, array $user)
+    {
+        $query = $this->handler->prepare(
+            'SELECT * FROM `comment` WHERE `id_partner` = :partner AND `id_user` = :user;'
+        );
+        $query->execute([
+            ':partner' => $partner['id'],
+            ':user' => $user['id']
+        ]);
+        return $query->fetch();
+    }
+
     public function addUser(array $newUser): bool
     {
         $query = $this->handler->prepare(

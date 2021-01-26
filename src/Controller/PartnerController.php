@@ -27,10 +27,14 @@ class PartnerController extends Controller
             return App::redirect('/partner-' . $partner['id']);
         }
         $securedPost = array_map('htmlspecialchars', $_POST);
-        if (isset($securedPost['text-comment']) && !empty($securedPost['text-comment'])) {
-            $this->db->addComment($securedPost['text-comment'], $partner, $user);
-            App::addFlash("Commentaire enregistré !");
-            return App::redirect('/partner-' . $partner['id']);
+        if (isset($securedPost['text-comment']) && !empty(trim($securedPost['text-comment']))) {
+            if (!$this->db->getCommentByUser($partner, $user)) {
+                $this->db->addComment($securedPost['text-comment'], $partner, $user);
+                App::addFlash("Commentaire enregistré !");
+                return App::redirect('/partner-' . $partner['id']);
+            } else {
+                App::addFlash("Un commentaire est déjà enregistré !");
+            }
         }
         return (new PartnerTemplate())->render([
             'partner' => $partner,
