@@ -28,7 +28,7 @@ if (isset($_SESSION['isConnected']) && $_SESSION['isConnected']) {
 
         <?php
         if ($user) {
-        ?>
+            ?>
 
         <div class="profile">
 
@@ -36,15 +36,15 @@ if (isset($_SESSION['isConnected']) && $_SESSION['isConnected']) {
                 <?= $user['lastname'] . ' ' . $user['firstname']; ?>
             </div>
             <div>
-                <a href="../user.php">Modifer mon profil</a>
+                <a href="/user.php">Paramètres du compte</a>
             </div>
             <div>
-                <a href="../user.php?action=logout">Déconnexion</a>
+                <a href="/user.php?action=logout">Se déconnecter</a>
             </div>
 
         </div>
 
-        <?php
+            <?php
         }
         ?>
 
@@ -52,7 +52,7 @@ if (isset($_SESSION['isConnected']) && $_SESSION['isConnected']) {
 
     <?php
     if (isset($_SESSION['flashMessages']) && !empty($_SESSION['flashMessages'])) {
-        while($message = array_shift($_SESSION['flashMessages'])) {
+        while ($message = array_shift($_SESSION['flashMessages'])) {
             ?>
 
             <p class="alert"><?= $message ?></p>

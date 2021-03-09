@@ -4,5 +4,6 @@
             <li><a href="#nogo">Contact</a></li>
         </ul>
     </footer>
+    <script src="js/app.js"></script>
 </body>
 </html>
