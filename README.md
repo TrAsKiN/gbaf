@@ -1,4 +1,4 @@
-[![SymfonyInsight](https://insight.symfony.com/projects/a74c3379-81fe-4e9a-b191-b41d9924136f/big.svg)](https://insight.symfony.com/projects/a74c3379-81fe-4e9a-b191-b41d9924136f)
+[![SymfonyInsight](https://insight.symfony.com/projects/6b5e007e-e8af-4f5c-a39e-f91eb1430779/big.svg)](https://insight.symfony.com/projects/6b5e007e-e8af-4f5c-a39e-f91eb1430779)
 
 # Installation
 
